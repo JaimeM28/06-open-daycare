@@ -16,8 +16,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Contexto que importa
 
-- `/` ya implementa el feed: `app/page.tsx` contiene datos estáticos y compone `app/components/feed/`. Los controles son deliberadamente inertes; no hay autenticación, API ni base de datos. No añadas funcionalidad al reproducir el diseño.
-- `references/pantallas/*.dc.html` y `references/screenshots/` son referencias visuales, no rutas de la aplicación. El índice es `references/pantallas/index.dc.html`; la home toma como referencia `feed.dc.html`.
+- `/` implementa el feed; `/ninos` lista niños y filtra por nombre; `/nino/[id]` muestra sus perfiles. Feed, Niños, las tarjetas y «Volver a Niños» navegan; las acciones de gestión siguen inertes. No hay autenticación, API ni base de datos.
+- `app/data/children.ts` es la fuente compartida de datos ficticios para listado y perfiles. Los ocho IDs se prerenderizan con `generateStaticParams`; los desconocidos llaman a `notFound()`. Usa `/nino/`, sin `ñ`: la ruta Unicode devolvió 404 en esta versión y el usuario autorizó cambiarla.
+- `references/pantallas/*.dc.html` y `references/screenshots/` son referencias visuales, no rutas de la aplicación. El índice es `references/pantallas/index.dc.html`; se implementan `feed.dc.html`, `ninos.dc.html` y `perfil-nino.dc.html` (Mateo).
 - `references/pantallas/support.js` es un runtime generado cuya fuente `dc-runtime/` no está en el repositorio: no lo edites ni lo importes a la aplicación.
 - `next.config.ts` activa `cacheComponents` y `partialPrefetching`; consulta la documentación incluida antes de asumir el comportamiento estándar de caché o renderizado.
 - Los componentes usan Tailwind, integrado mediante `@tailwindcss/turbopack` en `next.config.ts`, no PostCSS. `app/globals.css` define la paleta y enlaza `font-sans`/`font-heading` con Nunito/Fredoka de `next/font`; conserva el tema claro y `line-height: normal` para no alterar la referencia.

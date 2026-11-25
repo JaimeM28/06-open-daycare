@@ -42,7 +42,7 @@ const posts: FeedPost[] = [
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background md:flex-row">
-      <Sidebar />
+      <Sidebar activeSection="feed" />
       <main className="min-w-0 flex-1 md:h-screen md:overflow-y-auto">
         <div className="mx-auto w-full max-w-[760px] px-4 pt-6 pb-20 md:px-10 md:pt-[34px]">
           <FeedHeader />

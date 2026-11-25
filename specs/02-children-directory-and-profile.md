@@ -10,7 +10,7 @@
 **Incluye:**
 
 - `/ninos`: listado basado en `references/pantallas/ninos.dc.html`.
-- `/niño/[id]`: perfil basado en `references/pantallas/perfil-nino.dc.html`.
+- `/nino/[id]`: perfil basado en `references/pantallas/perfil-nino.dc.html`.
 - Ocho niños, en el orden y con los datos visibles del listado original.
 - Perfil de Mateo idéntico a la referencia.
 - Perfiles completos con datos ficticios para los otros siete.
@@ -70,7 +70,7 @@ IDs estables:
 
 - `app/data/children.ts`: datos y tipos compartidos.
 - `app/ninos/page.tsx`: página del listado.
-- `app/niño/[id]/page.tsx`: resolución del perfil.
+- `app/nino/[id]/page.tsx`: resolución del perfil.
 - `app/components/children/children-directory.tsx`: búsqueda y resultados.
 - `app/components/children/child-card.tsx`: tarjeta enlazable.
 - `app/components/children/child-profile.tsx`: composición del perfil.
@@ -91,8 +91,8 @@ Los componentes importados por el buscador respetan su frontera cliente.
 
 - Feed enlaza a `/`.
 - Niños enlaza a `/ninos`.
-- Cada tarjeta enlaza al ID correspondiente, por ejemplo `/niño/mateo-fernandez`.
-- Se conserva literalmente la `ñ` en el segmento del perfil; su codificación URL equivalente es válida.
+- Cada tarjeta enlaza al ID correspondiente, por ejemplo `/nino/mateo-fernandez`.
+- Se usa `nino`, sin `ñ`, por decisión del usuario tras comprobar un 404 al acceder a la ruta Unicode en la versión instalada de Next.js.
 - «Volver a Niños» enlaza a `/ninos`.
 - Niños aparece activo tanto en el listado como en los perfiles.
 - Una URL de perfil puede abrirse directamente y recargarse.
@@ -176,7 +176,8 @@ La documentación consultada mediante Context7 corresponde a Next.js 16.4.5, la 
 
 - **Sí:** datos locales ficticios para permitir perfiles completos sin backend.
 - **Sí:** conservar Mateo exactamente como referencia visual y mantener los demás perfiles coherentes con el listado.
-- **Sí:** usar `/ninos` y `/niño/[id]`, según las rutas elegidas por el usuario.
+- **Sí:** usar `/ninos` y `/nino/[id]`, según la decisión actualizada del usuario.
+- **No:** conservar `/niño/[id]`; la prueba en navegador devolvió 404 para su URL codificada y el usuario autorizó sustituirla por la ruta sin `ñ`.
 - **Sí:** filtro local sin persistencia ni sincronización con la URL.
 - **Sí:** reutilizar sidebar, fuentes, paleta e iconos existentes para evitar divergencias entre pantallas.
 - **Sí:** actualizar el estado activo mediante propiedades del sidebar sin convertirlo por completo en componente cliente.
@@ -185,7 +186,6 @@ La documentación consultada mediante Context7 corresponde a Next.js 16.4.5, la 
 
 ## Riesgos
 
-- El segmento con `ñ` se representa codificado en algunas herramientas: verificar navegación y acceso directo con su URL equivalente.
 - Las restricciones de `cacheComponents` pueden afectar rutas dinámicas e IDs desconocidos: comprobarlas en build y en ejecución.
 - El perfil original tiene anchos mínimos que no caben en móvil: adaptar esos bloques sin alterar su diseño de escritorio.
 - El runtime generado de referencias mantiene errores previos de lint: distinguirlos de los cambios de aplicación sin editar el runtime.
