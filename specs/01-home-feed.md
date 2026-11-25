@@ -88,27 +88,27 @@ No se crean commits automáticamente.
 
 ## Criterios de aceptación
 
-- [ ] `/` muestra el feed sin autenticación.
-- [ ] No queda contenido visible del starter de Next.js.
-- [ ] Las tres publicaciones conservan el contenido y el orden originales.
-- [ ] El placeholder de foto coincide con la referencia y no carga una fotografía.
-- [ ] Fredoka y Nunito están cargadas y se aplican a los mismos elementos que en el HTML original.
-- [ ] A 1440 × 900, la barra lateral mide 248 px y el contenedor del feed respeta su ancho máximo de 760 px.
-- [ ] En escritorio coinciden los colores, iconos, tamaños, espaciados, bordes y sombras de la referencia.
-- [ ] El feed se desplaza en escritorio sin desplazar la barra lateral.
-- [ ] Los controles pendientes no navegan, muestran avisos ni modifican datos.
-- [ ] Los controles sin implementación no se presentan como enlaces a rutas inexistentes.
-- [ ] A 375 × 812 no existe desbordamiento horizontal ni contenido cortado.
-- [ ] En móvil siguen visibles las tres publicaciones y los elementos de navegación.
-- [ ] La preferencia de modo oscuro no altera el diseño.
-- [ ] Recargar mantiene la misma fecha, textos y contadores.
-- [ ] No aparecen errores de ejecución ni hidratación en el navegador.
-- [ ] `npm run build` finaliza correctamente.
-- [ ] `npx next typegen` seguido de `npx tsc --noEmit` finaliza correctamente.
-- [ ] ESLint no informa errores en los archivos de aplicación modificados.
-- [ ] Se ejecuta `npm run lint` y se distinguen posibles problemas previos de `references/` de los introducidos por la implementación.
-- [ ] Se compara visualmente el HTML original y `/` con el mismo viewport y las fuentes cargadas.
-- [ ] Las capturas y demás artefactos de Playwright se guardan en `.playwright-mcp/`.
+- [x] `/` muestra el feed sin autenticación.
+- [x] No queda contenido visible del starter de Next.js.
+- [x] Las tres publicaciones conservan el contenido y el orden originales.
+- [x] El placeholder de foto coincide con la referencia y no carga una fotografía.
+- [x] Fredoka y Nunito están cargadas y se aplican a los mismos elementos que en el HTML original.
+- [x] A 1440 × 900, la barra lateral mide 248 px y el contenedor del feed respeta su ancho máximo de 760 px.
+- [x] En escritorio coinciden los colores, iconos, tamaños, espaciados, bordes y sombras de la referencia.
+- [x] El feed se desplaza en escritorio sin desplazar la barra lateral.
+- [x] Los controles pendientes no navegan, muestran avisos ni modifican datos.
+- [x] Los controles sin implementación no se presentan como enlaces a rutas inexistentes.
+- [x] A 375 × 812 no existe desbordamiento horizontal ni contenido cortado.
+- [x] En móvil siguen visibles las tres publicaciones y los elementos de navegación.
+- [x] La preferencia de modo oscuro no altera el diseño.
+- [x] Recargar mantiene la misma fecha, textos y contadores.
+- [x] No aparecen errores de ejecución ni hidratación en el navegador.
+- [x] `npm run build` finaliza correctamente.
+- [x] `npx next typegen` seguido de `npx tsc --noEmit` finaliza correctamente.
+- [x] ESLint no informa errores en los archivos de aplicación modificados.
+- [x] Se ejecuta `npm run lint` y se distinguen posibles problemas previos de `references/` de los introducidos por la implementación.
+- [x] Se compara visualmente el HTML original y `/` con el mismo viewport y las fuentes cargadas.
+- [x] Las capturas y demás artefactos de Playwright se guardan en `.playwright-mcp/`.
 
 ## Decisiones
 

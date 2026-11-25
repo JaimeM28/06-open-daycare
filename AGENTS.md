@@ -8,25 +8,27 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-
 ## Comandos y verificación
 
 - Usa npm (`package-lock.json`): `npm ci`, `npm run dev`, `npm run build`; `npm run start` requiere un build previo.
-- Lint completo: `npm run lint`. Para un archivo concreto: `npx eslint app/page.tsx`. El lint completo también alcanza el JavaScript de `references/`.
+- Lint de la aplicación: `npx eslint app`; de un archivo: `npx eslint app/page.tsx`. `npm run lint` también analiza `references/pantallas/support.js`, con errores previos de `ReactDOM.render` y asignación a `module`; distingue esos fallos de regresiones propias.
 - No hay scripts de test ni de typecheck, ni un runner de tests configurado. Para comprobar tipos, ejecuta primero `npx next typegen` y después `npx tsc --noEmit`: `app/layout.tsx` usa el tipo global generado `LayoutProps`.
 
 ## Contexto que importa
 
-- La aplicación en `app/` aún es el starter de Next.js; `references/pantallas/*.dc.html` y `references/screenshots/` son referencias de diseño, no rutas implementadas. `references/pantallas/index.dc.html` es el índice de pantallas.
-- `references/pantallas/support.js` es un runtime generado; no lo edites a mano. Su fuente `dc-runtime/` no está en este repositorio.
+- `/` ya implementa el feed: `app/page.tsx` contiene datos estáticos y compone `app/components/feed/`. Los controles son deliberadamente inertes; no hay autenticación, API ni base de datos. No añadas funcionalidad al reproducir el diseño.
+- `references/pantallas/*.dc.html` y `references/screenshots/` son referencias visuales, no rutas de la aplicación. El índice es `references/pantallas/index.dc.html`; la home toma como referencia `feed.dc.html`.
+- `references/pantallas/support.js` es un runtime generado cuya fuente `dc-runtime/` no está en el repositorio: no lo edites ni lo importes a la aplicación.
 - `next.config.ts` activa `cacheComponents` y `partialPrefetching`; consulta la documentación incluida antes de asumir el comportamiento estándar de caché o renderizado.
-- Tailwind se integra mediante `@tailwindcss/turbopack` en `next.config.ts` y `@import "tailwindcss"` en `app/globals.css`, no mediante una configuración PostCSS.
+- Los componentes usan Tailwind, integrado mediante `@tailwindcss/turbopack` en `next.config.ts`, no PostCSS. `app/globals.css` define la paleta y enlaza `font-sans`/`font-heading` con Nunito/Fredoka de `next/font`; conserva el tema claro y `line-height: normal` para no alterar la referencia.
 - `@/*` apunta a la raíz del repositorio, no a `app/` ni a `src/`.
-- Para el flujo de especificaciones, consulta `.agents/skills/spec/SKILL.md` y `.agents/skills/spec-impl/SKILL.md`; la implementación exige una especificación aprobada por el usuario.
+- El README sigue siendo el del starter; no describe las fuentes ni la pantalla actuales.
+- Nombres del código en inglés; comentarios en español solo cuando aporten valor.
 
-## Playwright
+## Especificaciones y comprobación visual
 
-- Guarda capturas y cualquier otro artefacto de Playwright dentro de `.playwright-mcp/`.
-
-## Reglas de codigo 
-- Usar codigo limpio, nombres, funciones y variables en ingles. 
+- Para definir o implementar specs, consulta `.agents/skills/spec/SKILL.md` y `.agents/skills/spec-impl/SKILL.md`. La implementación exige aprobación del usuario; `specs/.spec-config.yml` controla la creación de rama y los commits por paso.
+- El subagente local `.opencode/agents/spec-verifier.md` verifica, corrige dentro del alcance y actualiza checks con evidencia, sin reescribir criterios ni cambiar el estado del spec.
+- Playwright MCP está configurado en `opencode.json`; no hay una suite de Playwright Test. Guarda capturas, logs y cualquier otro artefacto en `.playwright-mcp/`.
+- Compara el HTML de referencia y la aplicación con el mismo viewport y scroll, tras `document.fonts.ready`. En escritorio el scroll pertenece a `main`, no a `window`; en móvil se desplaza la página.
+- Tras cambios de código, reconstruye y reinicia cualquier servidor `npm run start` usado para verificar: sirve el build, no los archivos fuente actuales.
