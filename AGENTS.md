@@ -9,5 +9,24 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 <!-- END:nextjs-agent-rules -->
 
 
-## MCPs
-- Playwright Screenshoots y cualquier cosa relacionada a Playwright tienen que estar en la carpeta .playwright-mcp 
+## Comandos y verificación
+
+- Usa npm (`package-lock.json`): `npm ci`, `npm run dev`, `npm run build`; `npm run start` requiere un build previo.
+- Lint completo: `npm run lint`. Para un archivo concreto: `npx eslint app/page.tsx`. El lint completo también alcanza el JavaScript de `references/`.
+- No hay scripts de test ni de typecheck, ni un runner de tests configurado. Para comprobar tipos, ejecuta primero `npx next typegen` y después `npx tsc --noEmit`: `app/layout.tsx` usa el tipo global generado `LayoutProps`.
+
+## Contexto que importa
+
+- La aplicación en `app/` aún es el starter de Next.js; `references/pantallas/*.dc.html` y `references/screenshots/` son referencias de diseño, no rutas implementadas. `references/pantallas/index.dc.html` es el índice de pantallas.
+- `references/pantallas/support.js` es un runtime generado; no lo edites a mano. Su fuente `dc-runtime/` no está en este repositorio.
+- `next.config.ts` activa `cacheComponents` y `partialPrefetching`; consulta la documentación incluida antes de asumir el comportamiento estándar de caché o renderizado.
+- Tailwind se integra mediante `@tailwindcss/turbopack` en `next.config.ts` y `@import "tailwindcss"` en `app/globals.css`, no mediante una configuración PostCSS.
+- `@/*` apunta a la raíz del repositorio, no a `app/` ni a `src/`.
+- Para el flujo de especificaciones, consulta `.agents/skills/spec/SKILL.md` y `.agents/skills/spec-impl/SKILL.md`; la implementación exige una especificación aprobada por el usuario.
+
+## Playwright
+
+- Guarda capturas y cualquier otro artefacto de Playwright dentro de `.playwright-mcp/`.
+
+## Reglas de codigo 
+- Usar codigo limpio, nombres, funciones y variables en ingles. 
