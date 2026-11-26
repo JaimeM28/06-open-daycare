@@ -1,6 +1,6 @@
 # SPEC 02 — Listado y perfil de niños
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Dependencias:** SPEC 01
 > **Fecha:** 2026-11-25
 > **Objetivo:** Implementar el listado de niños y sus perfiles con datos ficticios, búsqueda local y navegación desde el sidebar, respetando las referencias visuales.

@@ -1,0 +1,172 @@
+[
+  {
+    "route": "login",
+    "width": 375,
+    "metrics": {
+      "width": 375,
+      "scrollWidth": 375,
+      "height": 812,
+      "promo": "none",
+      "sidebar": false,
+      "overflow": []
+    }
+  },
+  {
+    "route": "login",
+    "width": 767,
+    "metrics": {
+      "width": 767,
+      "scrollWidth": 767,
+      "height": 812,
+      "promo": "none",
+      "sidebar": false,
+      "overflow": []
+    }
+  },
+  {
+    "route": "login",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "scrollWidth": 768,
+      "height": 812,
+      "promo": "block",
+      "sidebar": false,
+      "overflow": []
+    }
+  },
+  {
+    "route": "login",
+    "focus": [
+      {
+        "id": "login-email",
+        "tag": "INPUT",
+        "type": "email",
+        "outline": "2px",
+        "style": "solid",
+        "visible": true
+      },
+      {
+        "id": "login-password",
+        "tag": "INPUT",
+        "type": "password",
+        "outline": "2px",
+        "style": "solid",
+        "visible": true
+      },
+      {
+        "id": "",
+        "tag": "BUTTON",
+        "type": "submit",
+        "outline": "2px",
+        "style": "solid",
+        "visible": true
+      },
+      {
+        "id": "",
+        "tag": "A",
+        "type": "",
+        "outline": "2px",
+        "style": "solid",
+        "visible": true
+      }
+    ]
+  },
+  {
+    "route": "login",
+    "darkEqual": true
+  },
+  {
+    "route": "activar-cuenta",
+    "width": 375,
+    "metrics": {
+      "width": 375,
+      "scrollWidth": 365,
+      "height": 897,
+      "promo": null,
+      "sidebar": false,
+      "overflow": []
+    }
+  },
+  {
+    "route": "activar-cuenta",
+    "width": 767,
+    "metrics": {
+      "width": 767,
+      "scrollWidth": 757,
+      "height": 839,
+      "promo": null,
+      "sidebar": false,
+      "overflow": []
+    }
+  },
+  {
+    "route": "activar-cuenta",
+    "width": 768,
+    "metrics": {
+      "width": 768,
+      "scrollWidth": 758,
+      "height": 839,
+      "promo": null,
+      "sidebar": false,
+      "overflow": []
+    }
+  },
+  {
+    "route": "activar-cuenta",
+    "focus": [
+      {
+        "id": "activation-code",
+        "tag": "INPUT",
+        "type": "text",
+        "outline": "2px",
+        "style": "solid",
+        "visible": true
+      },
+      {
+        "id": "activation-email",
+        "tag": "INPUT",
+        "type": "email",
+        "outline": "2px",
+        "style": "solid",
+        "visible": true
+      },
+      {
+        "id": "activation-password",
+        "tag": "INPUT",
+        "type": "password",
+        "outline": "2px",
+        "style": "solid",
+        "visible": true
+      },
+      {
+        "id": "photo-consent",
+        "tag": "INPUT",
+        "type": "checkbox",
+        "outline": "2px",
+        "style": "solid",
+        "visible": true
+      },
+      {
+        "id": "",
+        "tag": "BUTTON",
+        "type": "submit",
+        "outline": "2px",
+        "style": "solid",
+        "visible": true
+      },
+      {
+        "id": "",
+        "tag": "A",
+        "type": "",
+        "outline": "2px",
+        "style": "solid",
+        "visible": true
+      }
+    ]
+  },
+  {
+    "route": "activar-cuenta",
+    "darkEqual": true
+  }
+]
