@@ -1,12 +1,19 @@
+import Link from "next/link";
 import { FeedIcon, type FeedIconName } from "./feed-icons";
 
 const navigationItems: { label: string; icon: FeedIconName }[] = [
-  { label: "Niños", icon: "children" },
   { label: "Avisos", icon: "bell" },
   { label: "Mi cuenta", icon: "user" },
 ];
 
-export function Sidebar() {
+type SidebarSection = "feed" | "children";
+
+const pageLinks: { label: string; icon: FeedIconName; href: string; section: SidebarSection }[] = [
+  { label: "Feed", icon: "home", href: "/", section: "feed" },
+  { label: "Niños", icon: "children", href: "/ninos", section: "children" },
+];
+
+export function Sidebar({ activeSection }: { activeSection: SidebarSection }) {
   return (
     <aside className="flex w-full shrink-0 flex-col border-b border-border bg-surface px-4 py-6 md:sticky md:top-0 md:h-screen md:w-[248px] md:border-r md:border-b-0">
       <div className="flex items-center gap-[11px] px-2 pt-1 pb-[22px]">
@@ -31,13 +38,17 @@ export function Sidebar() {
       </button>
 
       <nav aria-label="Navegación principal" className="grid grid-cols-2 gap-1 md:flex md:flex-1 md:flex-col">
-        <span
-          aria-current="page"
-          className="flex items-center gap-3 rounded-xl bg-accent-soft px-3 py-[11px] text-[14.5px] font-extrabold text-[#D9583C]"
-        >
-          <FeedIcon name="home" />
-          Feed
-        </span>
+        {pageLinks.map(({ label, icon, href, section }) => (
+          <Link
+            key={section}
+            href={href}
+            aria-current={activeSection === section ? "page" : undefined}
+            className={`flex items-center gap-3 rounded-xl px-3 py-[11px] text-[14.5px] focus-visible:outline-2 focus-visible:outline-accent ${activeSection === section ? "bg-accent-soft font-extrabold text-[#D9583C]" : "font-semibold text-[#6E6359]"}`}
+          >
+            <FeedIcon name={icon} />
+            {label}
+          </Link>
+        ))}
         {navigationItems.map(({ label, icon }) => (
           <button
             key={icon}

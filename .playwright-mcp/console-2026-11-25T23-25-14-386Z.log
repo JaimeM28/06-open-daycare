@@ -1,0 +1,20 @@
+[     516ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/mateo-fernandez?_rsc=ykm6Yz-HE6uo8N1K:1
+[     517ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/sofia-mendez?_rsc=ykm6Yz-HE6uo8N1K:1
+[     517ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/benjamin-ruiz?_rsc=ykm6Yz-HE6uo8N1K:1
+[     523ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/valentina-soto?_rsc=ykm6Yz-HE6uo8N1K:1
+[     526ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/tomas-diaz?_rsc=ykm6Yz-HE6uo8N1K:1
+[     528ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/emma-castro?_rsc=ykm6Yz-HE6uo8N1K:1
+[     537ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/lucas-romero?_rsc=ykm6Yz-HE6uo8N1K:1
+[     540ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/olivia-vega?_rsc=ykm6Yz-HE6uo8N1K:1
+[     846ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:3011/favicon.ico:1
+[    1012ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/mateo-fernandez:1
+[   97055ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/mateo-fernandez?_rsc=ykm6Yz-HE6uo8N1K:1
+[   97058ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/sofia-mendez?_rsc=ykm6Yz-HE6uo8N1K:1
+[   97065ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/benjamin-ruiz?_rsc=ykm6Yz-HE6uo8N1K:1
+[   97068ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/valentina-soto?_rsc=ykm6Yz-HE6uo8N1K:1
+[   97069ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/tomas-diaz?_rsc=ykm6Yz-HE6uo8N1K:1
+[   97072ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/emma-castro?_rsc=ykm6Yz-HE6uo8N1K:1
+[   97086ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/lucas-romero?_rsc=ykm6Yz-HE6uo8N1K:1
+[   97086ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/ni%C3%B1o/olivia-vega?_rsc=ykm6Yz-HE6uo8N1K:1
+[  252330ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/nino/no-existe:1
+[  262305ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3010/nino/no-existe:1
