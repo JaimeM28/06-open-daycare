@@ -1,6 +1,6 @@
 # SPEC 03 — Login y activación de cuenta
 
-> **Estado:** Borrador
+> **Estado:** Aprobado
 > **Dependencias:** SPEC 01, SPEC 02
 > **Fecha:** 2026-11-26
 > **Objetivo:** Implementar login y activación como formularios de demostración navegables, respetando las referencias visuales y sin autenticación real.
