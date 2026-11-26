@@ -1,6 +1,6 @@
 # SPEC 05 — Vinculación temporal de padres
 
-> **Estado:** Borrador
+> **Estado:** Aprobado
 > **Dependencias:** SPEC 02
 > **Fecha:** 2026-11-26
 > **Objetivo:** Vincular familiares a los ocho niños existentes mediante un modal que añade invitaciones pendientes en memoria, sin enviar correos.
@@ -118,32 +118,40 @@ No realizar commits automáticos.
 
 ## Criterios de aceptación
 
-- [ ] Los ocho perfiles permiten abrir el modal sin cambiar la URL.
-- [ ] Cabecera y texto informativo muestran el niño correspondiente.
-- [ ] Los campos y el parentesco comienzan con los valores acordados.
-- [ ] Las tres opciones de parentesco funcionan como selección única.
-- [ ] Nombre vacío, solo espacios o email inválido impiden enviar.
-- [ ] Los errores están asociados a los campos y se enfoca el primero.
-- [ ] Botón y Enter producen el mismo resultado.
-- [ ] Cada envío válido añade exactamente un familiar pendiente al niño correcto.
-- [ ] Se normalizan espacios exteriores y se detectan emails repetidos sin distinguir mayúsculas.
-- [ ] Un email puede utilizarse en distintos niños.
-- [ ] Los padres originales permanecen intactos.
-- [ ] Navegar entre perfiles, listado y feed conserva las invitaciones.
-- [ ] Recargar elimina únicamente las invitaciones nuevas.
-- [ ] X, Escape y clic fuera descartan el formulario.
-- [ ] Reabrir restaura campos vacíos y «Mamá».
-- [ ] El foco queda contenido y vuelve al disparador al cerrar.
-- [ ] El fondo no recibe interacción ni se desplaza.
-- [ ] Se muestran el código fijo, vencimiento ilustrativo y aviso de demostración.
-- [ ] No se transmiten ni persisten los datos introducidos.
-- [ ] `/activar-cuenta` conserva su comportamiento actual.
-- [ ] A 1440 × 900 se compara la tarjeta con la referencia, considerando el aviso añadido.
-- [ ] A 375 × 812 no hay desbordamiento horizontal ni controles inaccesibles.
-- [ ] Las evidencias se guardan en `.playwright-mcp/`, con iguales viewport y scroll y fuentes cargadas.
-- [ ] No aparecen errores de ejecución ni hidratación.
-- [ ] Build, generación de tipos, TypeScript y ESLint de `app/` finalizan correctamente.
-- [ ] El lint global distingue los errores previos de `references/`.
+- [x] Los ocho perfiles permiten abrir el modal sin cambiar la URL.
+- [x] Cabecera y texto informativo muestran el niño correspondiente.
+- [x] Los campos y el parentesco comienzan con los valores acordados.
+- [x] Las tres opciones de parentesco funcionan como selección única.
+- [x] Nombre vacío, solo espacios o email inválido impiden enviar.
+- [x] Los errores están asociados a los campos y se enfoca el primero.
+- [x] Botón y Enter producen el mismo resultado.
+- [x] Cada envío válido añade exactamente un familiar pendiente al niño correcto.
+- [x] Se normalizan espacios exteriores y se detectan emails repetidos sin distinguir mayúsculas.
+- [x] Un email puede utilizarse en distintos niños.
+- [x] Los padres originales permanecen intactos.
+- [x] Navegar entre perfiles, listado y feed conserva las invitaciones.
+- [x] Recargar elimina únicamente las invitaciones nuevas.
+- [x] X, Escape y clic fuera descartan el formulario.
+- [x] Reabrir restaura campos vacíos y «Mamá».
+- [x] El foco queda contenido y vuelve al disparador al cerrar.
+- [x] El fondo no recibe interacción ni se desplaza.
+- [x] Se muestran el código fijo, vencimiento ilustrativo y aviso de demostración.
+- [x] No se transmiten ni persisten los datos introducidos.
+- [x] `/activar-cuenta` conserva su comportamiento actual.
+- [x] A 1440 × 900 se compara la tarjeta con la referencia, considerando el aviso añadido.
+- [x] A 375 × 812 no hay desbordamiento horizontal ni controles inaccesibles.
+- [x] Las evidencias se guardan en `.playwright-mcp/`, con iguales viewport y scroll y fuentes cargadas.
+- [x] No aparecen errores de ejecución ni hidratación.
+- [x] Build, generación de tipos, TypeScript y ESLint de `app/` finalizan correctamente.
+- [x] El lint global distingue los errores previos de `references/`.
+
+### Evidencia de verificación
+
+- Verificación realizada el 2026-11-26 con Playwright sobre el build de producción en `http://localhost:3105`.
+- Resultado funcional, comprobaciones de almacenamiento, consola y capturas: `.playwright-mcp/spec-05-verification.md`.
+- Capturas de referencia y aplicación a 1440 × 900 y 375 × 812 tras `document.fonts.ready` y con scroll inicial cero.
+- `npm run build`, `npx next typegen`, `npx tsc --noEmit` y `npx eslint app` finalizaron correctamente.
+- `npm run lint` mantiene únicamente los dos errores previos y ocho advertencias de `references/pantallas/support.js`.
 
 ## Decisiones
 

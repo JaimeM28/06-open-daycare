@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fredoka, Nunito } from "next/font/google";
 import { ChildrenProvider } from "@/app/components/children/children-provider";
+import { ParentInvitationsProvider } from "@/app/components/children/parent-invitations-provider";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -27,7 +28,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${nunito.variable} ${fredoka.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ChildrenProvider>{children}</ChildrenProvider>
+        <ChildrenProvider>
+          <ParentInvitationsProvider>{children}</ParentInvitationsProvider>
+        </ChildrenProvider>
       </body>
     </html>
   );
