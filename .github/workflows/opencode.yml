@@ -1,0 +1,64 @@
+name: OpenCode V2 Agent
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  id-token: write
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  opencode:
+    if: |
+      startsWith(github.event.comment.body, '/oc ') &&
+      github.event.comment.author_association == 'OWNER'
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Install OpenCode V2
+        run: |
+          curl -fsSL https://opencode.ai/v2/install | bash
+          echo "$HOME/.opencode/bin" >> "$GITHUB_PATH"
+
+      - name: Sign in to OpenCode
+        env:
+          AUDIENCE: https://opencode.ai/console
+        run: |
+          oidc=$(curl -sSf --oauth2-bearer "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$AUDIENCE" | jq -r .value)
+
+          token=$(curl -sSf https://opencode.ai/console/auth/oauth/token \
+            -d grant_type=urn:ietf:params:oauth:grant-type:token-exchange \
+            -d subject_token_type=urn:ietf:params:oauth:token-type:jwt \
+            -d client_id=sk_c56d00c0-416a-491a-bbbb-5da126cce76a \
+            -d subject_token="$oidc" | jq -er .access_token)
+
+          echo "::add-mask::$token"
+          echo "OPENCODE_API_KEY=$token" >> "$GITHUB_ENV"
+
+      - name: Run OpenCode
+        env:
+          COMMENT_BODY: ${{ github.event.comment.body }}
+        run: |
+          PROMPT="${COMMENT_BODY#/oc }"
+          opencode run \
+            --model opencode/deepseek-v4.1-flash-free \
+            "$PROMPT" > /tmp/response.txt
+
+      - name: Publish response
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --body-file /tmp/response.txt
