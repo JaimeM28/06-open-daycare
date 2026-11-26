@@ -17,8 +17,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 ## Contexto que importa
 
 - `/` implementa el feed; `/ninos` lista niños y filtra por nombre; `/nino/[id]` muestra sus perfiles. Feed, Niños, las tarjetas y «Volver a Niños» navegan; las acciones de gestión siguen inertes. No hay autenticación, API ni base de datos.
+- `/login` y `/activar-cuenta` son demos navegables sin selector de rol ni sesión real. Usan validación nativa y envían al feed `/` sin transmitir ni persistir credenciales. El consentimiento de fotos es opcional y no se guarda; recuperación de contraseña permanece inerte. Ambas rutas omiten el sidebar y reutilizan `app/components/auth/`.
 - `app/data/children.ts` es la fuente compartida de datos ficticios para listado y perfiles. Los ocho IDs se prerenderizan con `generateStaticParams`; los desconocidos llaman a `notFound()`. Usa `/nino/`, sin `ñ`: la ruta Unicode devolvió 404 en esta versión y el usuario autorizó cambiarla.
-- `references/pantallas/*.dc.html` y `references/screenshots/` son referencias visuales, no rutas de la aplicación. El índice es `references/pantallas/index.dc.html`; se implementan `feed.dc.html`, `ninos.dc.html` y `perfil-nino.dc.html` (Mateo).
+- `references/pantallas/*.dc.html` y `references/screenshots/` son referencias visuales, no rutas de la aplicación. El índice es `references/pantallas/index.dc.html`; se implementan `feed.dc.html`, `ninos.dc.html`, `perfil-nino.dc.html` (Mateo), `login.dc.html` y `activar-cuenta.dc.html`.
 - `references/pantallas/support.js` es un runtime generado cuya fuente `dc-runtime/` no está en el repositorio: no lo edites ni lo importes a la aplicación.
 - `next.config.ts` activa `cacheComponents` y `partialPrefetching`; consulta la documentación incluida antes de asumir el comportamiento estándar de caché o renderizado.
 - Los componentes usan Tailwind, integrado mediante `@tailwindcss/turbopack` en `next.config.ts`, no PostCSS. `app/globals.css` define la paleta y enlaza `font-sans`/`font-heading` con Nunito/Fredoka de `next/font`; conserva el tema claro y `line-height: normal` para no alterar la referencia.

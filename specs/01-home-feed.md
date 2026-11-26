@@ -1,6 +1,6 @@
 # SPEC 01 — Home visual del feed
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Dependencias:** Ninguna
 > **Fecha:** 2026-11-25
 > **Objetivo:** Reproducir en `/` el diseño de `references/pantallas/feed.dc.html` mediante componentes reutilizables y Tailwind CSS, con contenido estático y adaptación móvil.
