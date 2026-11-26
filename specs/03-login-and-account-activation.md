@@ -1,6 +1,6 @@
 # SPEC 03 — Login y activación de cuenta
 
-> **Estado:** Borrador
+> **Estado:** Implementado
 > **Dependencias:** SPEC 01, SPEC 02
 > **Fecha:** 2026-11-26
 > **Objetivo:** Implementar login y activación como formularios de demostración navegables, respetando las referencias visuales y sin autenticación real.
@@ -101,30 +101,30 @@ No se crean commits automáticamente.
 
 ## Criterios de aceptación
 
-- [ ] Ambas rutas funcionan por acceso directo y recarga.
-- [ ] El login no muestra selector de rol ni «INGRESO COMO».
-- [ ] Los campos comienzan con los valores acordados.
-- [ ] Ambos formularios permiten editar sus campos.
-- [ ] Campos obligatorios vacíos o emails inválidos impiden navegar.
-- [ ] Un envío válido mediante botón o Enter navega a `/`.
-- [ ] Desmarcar el consentimiento no bloquea la activación.
-- [ ] Los enlaces entre login y activación funcionan.
-- [ ] Recuperación de contraseña permanece visible e inerte, sin enlazar a una ruta inexistente.
-- [ ] No se transmiten ni persisten credenciales o consentimiento.
-- [ ] Recargar restaura los valores iniciales.
-- [ ] El feed, listado y perfiles conservan su comportamiento público y su diseño.
-- [ ] A 1440 × 900 se comparan ambas pantallas con sus referencias, considerando las diferencias acordadas.
-- [ ] A 375 × 812 no hay desbordamientos ni contenido cortado.
-- [ ] En móvil, el login muestra la cabecera coral compacta sin texto promocional ni pie del panel.
-- [ ] Los formularios se utilizan con teclado y muestran foco visible.
-- [ ] Las etiquetas están asociadas a sus campos y el consentimiento utiliza un checkbox real.
-- [ ] La preferencia de modo oscuro no altera el diseño.
-- [ ] No aparecen errores de ejecución ni hidratación.
-- [ ] `npm run build` finaliza correctamente.
-- [ ] `npx next typegen` seguido de `npx tsc --noEmit` finaliza correctamente.
-- [ ] `npx eslint app` finaliza sin errores.
-- [ ] Se ejecuta `npm run lint` y se distinguen los errores previos del runtime generado en `references/` de las regresiones propias.
-- [ ] Las evidencias visuales se guardan en `.playwright-mcp/`, con iguales viewport y scroll y tras esperar `document.fonts.ready`.
+- [x] Ambas rutas funcionan por acceso directo y recarga.
+- [x] El login no muestra selector de rol ni «INGRESO COMO».
+- [x] Los campos comienzan con los valores acordados.
+- [x] Ambos formularios permiten editar sus campos.
+- [x] Campos obligatorios vacíos o emails inválidos impiden navegar.
+- [x] Un envío válido mediante botón o Enter navega a `/`.
+- [x] Desmarcar el consentimiento no bloquea la activación.
+- [x] Los enlaces entre login y activación funcionan.
+- [x] Recuperación de contraseña permanece visible e inerte, sin enlazar a una ruta inexistente.
+- [x] No se transmiten ni persisten credenciales o consentimiento.
+- [x] Recargar restaura los valores iniciales.
+- [x] El feed, listado y perfiles conservan su comportamiento público y su diseño.
+- [x] A 1440 × 900 se comparan ambas pantallas con sus referencias, considerando las diferencias acordadas.
+- [x] A 375 × 812 no hay desbordamientos ni contenido cortado.
+- [x] En móvil, el login muestra la cabecera coral compacta sin texto promocional ni pie del panel.
+- [x] Los formularios se utilizan con teclado y muestran foco visible.
+- [x] Las etiquetas están asociadas a sus campos y el consentimiento utiliza un checkbox real.
+- [x] La preferencia de modo oscuro no altera el diseño.
+- [x] No aparecen errores de ejecución ni hidratación.
+- [x] `npm run build` finaliza correctamente.
+- [x] `npx next typegen` seguido de `npx tsc --noEmit` finaliza correctamente.
+- [x] `npx eslint app` finaliza sin errores.
+- [x] Se ejecuta `npm run lint` y se distinguen los errores previos del runtime generado en `references/` de las regresiones propias.
+- [x] Las evidencias visuales se guardan en `.playwright-mcp/`, con iguales viewport y scroll y tras esperar `document.fonts.ready`.
 
 ## Decisiones
 

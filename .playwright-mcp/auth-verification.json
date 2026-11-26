@@ -1,0 +1,74 @@
+{
+  "results": [
+    {
+      "route": "login",
+      "emptyPasswordBlocked": true
+    },
+    {
+      "route": "login",
+      "invalidEmailBlocked": true
+    },
+    {
+      "route": "login",
+      "enterNavigates": true
+    },
+    {
+      "route": "/login",
+      "resetEmail": "caro@opendaycare.com",
+      "passwordEmpty": true,
+      "storage": {
+        "local": 0,
+        "session": 0
+      },
+      "overflow": false,
+      "h1Visible": true,
+      "labels": true
+    },
+    {
+      "route": "activar-cuenta",
+      "emptyPasswordBlocked": true
+    },
+    {
+      "route": "activar-cuenta",
+      "invalidEmailBlocked": true
+    },
+    {
+      "emptyCodeBlocked": true
+    },
+    {
+      "optionalConsentUnchecked": true
+    },
+    {
+      "route": "activar-cuenta",
+      "enterNavigates": true
+    },
+    {
+      "route": "/activar-cuenta",
+      "resetEmail": "lucia.fernandez@gmail.com",
+      "passwordEmpty": true,
+      "storage": {
+        "local": 0,
+        "session": 0
+      },
+      "overflow": false,
+      "h1Visible": true,
+      "labels": true
+    },
+    {
+      "linksBothDirections": true
+    },
+    {
+      "route": "login",
+      "darkModeUnchanged": true
+    },
+    {
+      "route": "activar-cuenta",
+      "darkModeUnchanged": true
+    },
+    {
+      "childrenNavigation": true
+    }
+  ],
+  "errors": [],
+  "leaks": []
+}
