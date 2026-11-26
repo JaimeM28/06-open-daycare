@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect, useId, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { ModalDialog } from "@/app/components/ui/modal-dialog";
 import { FeedIcon } from "./feed-icons";
+import { usePosts } from "./posts-provider";
 
 export function MobileNavigation({ brand, children }: { brand: ReactNode; children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const headingId = useId();
   const panelId = useId();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const { openPostForm } = usePosts();
 
   useEffect(() => {
     const desktop = window.matchMedia("(min-width: 768px)");
@@ -23,6 +26,7 @@ export function MobileNavigation({ brand, children }: { brand: ReactNode; childr
       <header className="flex items-center justify-between gap-4 px-6 py-4">
         {brand}
         <button
+          ref={menuButtonRef}
           type="button"
           aria-label="Abrir menú"
           aria-expanded={isOpen}
@@ -43,7 +47,18 @@ export function MobileNavigation({ brand, children }: { brand: ReactNode; childr
             id={panelId}
             className="relative flex min-h-full flex-col px-4 py-6"
             onClickCapture={(event) => {
-              if (event.target instanceof Element && event.target.closest("a[href]")) setIsOpen(false);
+              if (!(event.target instanceof Element)) return;
+              if (event.target.closest("[data-create-post]")) {
+                event.stopPropagation();
+                setIsOpen(false);
+                // Esperar al desmontaje del menú para restaurar foco y scroll antes de abrir otro diálogo.
+                requestAnimationFrame(() => {
+                  menuButtonRef.current?.focus({ preventScroll: true });
+                  openPostForm();
+                });
+              } else if (event.target.closest("a[href]")) {
+                setIsOpen(false);
+              }
             }}
           >
             <h2 id={headingId} className="sr-only">Menú de navegación</h2>

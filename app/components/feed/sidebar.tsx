@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { FeedIcon, type FeedIconName } from "./feed-icons";
 import { MobileNavigation } from "./mobile-navigation";
+import { usePosts } from "./posts-provider";
 
 const navigationItems: { label: string; icon: FeedIconName }[] = [
   { label: "Avisos", icon: "bell" },
@@ -31,13 +34,15 @@ function SidebarBrand({ compact = false }: { compact?: boolean }) {
 }
 
 function SidebarContent({ activeSection }: { activeSection: SidebarSection }) {
+  const { openPostForm } = usePosts();
   return (
     <>
       <SidebarBrand />
       <button
         type="button"
-        disabled
-        className="mb-[18px] flex w-full cursor-default items-center justify-center gap-2 rounded-[14px] bg-[linear-gradient(180deg,#F4977E,#EE8164)] p-3 text-[14.5px] font-extrabold text-white shadow-[0_8px_18px_-8px_rgba(238,129,100,0.75)]"
+        data-create-post
+        onClick={openPostForm}
+        className="mb-[18px] flex w-full cursor-pointer items-center justify-center gap-2 rounded-[14px] bg-[linear-gradient(180deg,#F4977E,#EE8164)] p-3 text-[14.5px] font-extrabold text-white shadow-[0_8px_18px_-8px_rgba(238,129,100,0.75)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         <FeedIcon name="plus" size={17} strokeWidth={2.4} />
         Nueva publicación
