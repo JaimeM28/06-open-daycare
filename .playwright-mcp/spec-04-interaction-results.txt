@@ -1,0 +1,358 @@
+{
+  base: 'http://localhost:3111',
+  results: [
+    {
+      name: 'Modal without URL change',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Initial values',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Empty fields blocked',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Accessible errors and first invalid focus',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Whitespace name blocked',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Invalid date blocked: 31/04/2022',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Invalid date blocked: 29/02/2023',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Invalid date blocked: 01/01/2999',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Modal keyboard containment 0',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Modal keyboard containment 1',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Modal keyboard containment 2',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Modal keyboard containment 3',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Modal keyboard containment 4',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Modal keyboard containment 5',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Modal keyboard containment 6',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Modal keyboard containment 7',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Modal keyboard containment 8',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Scroll lock',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Cancel restores focus and scroll',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Reopen clears draft: escape',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Reopen clears draft: outside',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Exactly one appended child',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Allergies normalized',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Search and count include child',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Duplicate names with unique IDs',
+      passed: true,
+      details: [
+        '/nino/temporary-2907a378-d8bc-49b4-8e41-79bb9e9c486f',
+        '/nino/temporary-4dc973a8-54b4-4ccb-a5ed-a486ec52fe19'
+      ]
+    },
+    {
+      name: 'Optional notes and parents defaults',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Navigation retains both children',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Profile displays entered values',
+      passed: true,
+      details: 'Volver a Niños\n' +
+        'M\n' +
+        'Martina Demo\n' +
+        '\n' +
+        '3 años · Sala Soles\n' +
+        '\n' +
+        'Editar\n' +
+        'Alergias y notas\n' +
+        '\n' +
+        'MANÍ, LACTOSA\n' +
+        '\n' +
+        'Nota ficticia de demostración\n' +
+        '\n' +
+        'Fecha de nacimiento\n' +
+        '27 nov 2022\n' +
+        'Sala\n' +
+        'Soles\n' +
+        'Ingreso\n' +
+        '26 nov 2026\n' +
+        'Resumen del día\n' +
+        'PADRES VINCULADOS\n' +
+        '\n' +
+        'Sin padres vinculados.\n' +
+        '\n' +
+        'Vincular padre'
+    },
+    {
+      name: 'No persistence',
+      passed: true,
+      details: {
+        local: 0,
+        session: 0,
+        cookies: ''
+      }
+    },
+    {
+      name: 'New tab starts with originals',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Reloaded temporary profile is not found',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Reload removes temporary children',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Original profile: /nino/mateo-fernandez',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Original profile: /nino/sofia-mendez',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Original profile: /nino/benjamin-ruiz',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Original profile: /nino/valentina-soto',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Original profile: /nino/tomas-diaz',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Original profile: /nino/emma-castro',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Original profile: /nino/lucas-romero',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Original profile: /nino/olivia-vega',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Unknown ID remains not found',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'No mobile overflow',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Menu expanded: x',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Menu retains navigation',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Menu contains focus',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Menu restores focus and scroll: x',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Menu expanded: escape',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Menu retains navigation',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Menu contains focus',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Menu restores focus and scroll: escape',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Menu expanded: outside',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Menu retains navigation',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Menu contains focus',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Menu restores focus and scroll: outside',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Navigation closes menu',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Desktop breakpoint restores sidebar',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Mobile breakpoint hides sidebar',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'Mobile modal fits viewport',
+      passed: true,
+      details: {
+        width: 341,
+        client: 341,
+        top: 24,
+        bottom: 613
+      }
+    },
+    {
+      name: 'Long form can scroll',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'No sidebar in /login',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'No sidebar in /activar-cuenta',
+      passed: true,
+      details: undefined
+    },
+    {
+      name: 'No write requests',
+      passed: true,
+      details: []
+    },
+    {
+      name: 'No runtime errors',
+      passed: true,
+      details: []
+    }
+  ],
+  runtimeErrors: [],
+  writes: []
+}

@@ -18,13 +18,13 @@ export function ChildCard({ child }: { child: Child }) {
         {child.initial}
       </span>
       <div className="min-w-0 flex-1 md:max-lg:basis-[calc(100%_-_62px)]">
-        <h2 className="font-heading text-[16px] font-semibold">{child.name}</h2>
+        <h2 className="break-words font-heading text-[16px] font-semibold">{child.name}</h2>
         <p className="text-[13px] text-subtle">
           {child.age} años · {parentCountLabel(child.parents.length)}
         </p>
       </div>
       {child.allergyLabel ? (
-        <span className="shrink-0 rounded-full bg-[#FBD8CC] px-[9px] py-[5px] text-[11px] font-extrabold text-[#D9684A]">
+        <span className="max-w-[45%] shrink-0 break-words rounded-full bg-[#FBD8CC] px-[9px] py-[5px] text-[11px] font-extrabold text-[#D9684A]">
           {child.allergyLabel}
         </span>
       ) : child.parents.length === 0 ? (
