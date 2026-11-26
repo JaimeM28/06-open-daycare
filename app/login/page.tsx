@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AuthBrand } from "@/app/components/auth/auth-brand";
 import { LoginForm } from "@/app/components/auth/login-form";
 
@@ -35,7 +36,9 @@ export default function LoginPage() {
           <LoginForm />
           <p className="mt-6 text-center text-[14.5px] text-muted">
             ¿Te invitó la guardería?{" "}
-            <span className="font-extrabold text-[#C5503A]">Activá tu cuenta</span>
+            <Link href="/activar-cuenta" className="rounded-sm font-extrabold text-[#C5503A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+              Activá tu cuenta
+            </Link>
           </p>
         </div>
       </section>
