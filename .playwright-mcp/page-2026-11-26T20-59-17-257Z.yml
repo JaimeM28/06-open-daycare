@@ -1,0 +1,65 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e9]:
+        - generic [ref=e10]: OpenDayCare
+        - generic [ref=e11]: Sala Soles
+      - button "Nueva publicación" [disabled] [ref=e12]
+      - navigation "Navegación principal" [ref=e15]:
+        - link "Feed" [ref=e16] [cursor=pointer]:
+          - /url: /
+        - link "Niños" [ref=e19] [cursor=pointer]:
+          - /url: /ninos
+        - button "Avisos" [disabled] [ref=e24]
+        - button "Mi cuenta" [disabled] [ref=e27]
+      - generic [ref=e32]:
+        - generic [ref=e33]: C
+        - generic [ref=e34]:
+          - generic [ref=e35]: Caro Giménez
+          - generic [ref=e36]: Maestra · Soles
+        - button "Cerrar sesión" [disabled] [ref=e37]
+    - main [ref=e40]:
+      - generic [ref=e41]:
+        - link "Volver a Niños" [ref=e42] [cursor=pointer]:
+          - /url: /ninos
+        - generic [ref=e45]:
+          - generic [ref=e46]:
+            - generic [ref=e47]:
+              - generic [ref=e48]: M
+              - generic [ref=e49]:
+                - heading "Mateo Fernández" [level=1] [ref=e50]
+                - paragraph [ref=e51]: 3 años · Sala Soles
+              - button "Editar" [disabled] [ref=e52]
+            - region "Alergias y notas" [ref=e53]:
+              - generic [ref=e58]:
+                - heading "Alergias y notas" [level=2] [ref=e59]
+                - paragraph [ref=e60]: Alergia al maní. Evitar frutos secos. Lleva inhalador en la mochila.
+            - generic [ref=e61]:
+              - generic [ref=e62]:
+                - term [ref=e63]: Fecha de nacimiento
+                - definition [ref=e64]: 12 mar 2022
+              - generic [ref=e65]:
+                - term [ref=e66]: Sala
+                - definition [ref=e67]: Soles
+              - generic [ref=e68]:
+                - term [ref=e69]: Ingreso
+                - definition [ref=e70]: feb 2025
+          - generic [ref=e71]:
+            - button "Resumen del día" [disabled] [ref=e72]
+            - region "Padres vinculados" [ref=e76]:
+              - heading "PADRES VINCULADOS" [level=2] [ref=e77]
+              - generic [ref=e78]:
+                - generic [ref=e79]:
+                  - generic [ref=e80]: L
+                  - generic [ref=e81]:
+                    - generic [ref=e82]: Lucía Fernández
+                    - generic [ref=e83]: Mamá · activa
+                  - generic [ref=e84]: ACTIVA
+                - generic [ref=e85]:
+                  - generic [ref=e86]: D
+                  - generic [ref=e87]:
+                    - generic [ref=e88]: Diego Fernández
+                    - generic [ref=e89]: Papá · invitación enviada
+                  - generic [ref=e90]: PENDIENTE
+                - button "Vincular otro padre" [ref=e91] [cursor=pointer]
+  - alert [ref=e96]

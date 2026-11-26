@@ -72,7 +72,7 @@ export function ChildProfile({ child, showAllergyLabels = false }: { child: Chil
             <FeedIcon name="sun" size={18} />
             Resumen del día
           </button>
-          <LinkedParents parents={child.parents} />
+          <LinkedParents childId={child.id} childName={child.name} parents={child.parents} />
         </div>
       </div>
     </>

@@ -13,7 +13,7 @@ export type Parent = {
   name: string;
   initial: string;
   avatarColor: keyof typeof avatarColors;
-  relationship: "Mamá" | "Papá";
+  relationship: "Mamá" | "Papá" | "Tutor/a";
   status: "active" | "pending";
 };
 

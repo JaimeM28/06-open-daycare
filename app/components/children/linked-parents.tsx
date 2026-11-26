@@ -1,5 +1,10 @@
-import { avatarColors, type Parent } from "@/app/data/children";
+"use client";
+
+import { useState } from "react";
+import { avatarColors, children, type Parent } from "@/app/data/children";
 import { FeedIcon } from "@/app/components/feed/feed-icons";
+import { useParentInvitations } from "./parent-invitations-provider";
+import { LinkParentModal } from "./link-parent-modal";
 
 function ParentRow({ parent }: { parent: Parent }) {
   const isActive = parent.status === "active";
@@ -11,7 +16,7 @@ function ParentRow({ parent }: { parent: Parent }) {
         {parent.initial}
       </span>
       <div className="min-w-0 flex-1">
-        <div className="text-[14.5px] font-extrabold">{parent.name}</div>
+        <div className="wrap-anywhere text-[14.5px] font-extrabold">{parent.name}</div>
         <div className="text-[12.5px] text-subtle">
           {parent.relationship} · {isActive ? activeLabel : "invitación enviada"}
         </div>
@@ -23,24 +28,30 @@ function ParentRow({ parent }: { parent: Parent }) {
   );
 }
 
-export function LinkedParents({ parents }: { parents: Parent[] }) {
+export function LinkedParents({ childId, childName, parents }: { childId: string; childName: string; parents: Parent[] }) {
+  const { invitationsByChild } = useParentInvitations();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const linkedParents = [...parents, ...(invitationsByChild[childId] ?? [])];
+  const canInvite = children.some((child) => child.id === childId);
+
   return (
     <section className="rounded-2xl border border-border bg-surface px-[18px] py-4" aria-label="Padres vinculados">
       <h2 className="mb-[14px] text-[12.5px] font-extrabold tracking-[0.8px] text-[#8A7C6D]">
         PADRES VINCULADOS
       </h2>
       <div className="flex flex-col gap-[14px]">
-        {parents.length === 0 && <p className="text-[14.5px] text-muted">Sin padres vinculados.</p>}
-        {parents.map((parent) => <ParentRow key={parent.id} parent={parent} />)}
-        <button type="button" disabled className="flex cursor-default items-center gap-3 pt-2 text-left">
+        {linkedParents.length === 0 && <p className="text-[14.5px] text-muted">Sin padres vinculados.</p>}
+        {linkedParents.map((parent) => <ParentRow key={parent.id} parent={parent} />)}
+        <button type="button" disabled={!canInvite} onClick={() => setIsModalOpen(true)} className="flex cursor-pointer items-center gap-3 rounded-sm pt-2 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-default">
           <span className="flex size-10 shrink-0 items-center justify-center rounded-full border-[1.5px] border-dashed border-[#D8CBBA] text-[#B0A290]">
             <FeedIcon name="plus" size={18} strokeWidth={2.2} />
           </span>
           <span className="text-[14.5px] font-extrabold text-[#C5503A]">
-            {parents.length === 0 ? "Vincular padre" : "Vincular otro padre"}
+            {linkedParents.length === 0 ? "Vincular padre" : "Vincular otro padre"}
           </span>
         </button>
       </div>
+      {isModalOpen && canInvite && <LinkParentModal childId={childId} childName={childName} onClose={() => setIsModalOpen(false)} />}
     </section>
   );
 }
