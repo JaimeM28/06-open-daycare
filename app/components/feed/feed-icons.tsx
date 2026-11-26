@@ -9,6 +9,9 @@ const iconShapes = {
   ),
   chevronRight: <path d="m9 18 6-6-6-6" />,
   chevronLeft: <path d="m15 18-6-6 6-6" />,
+  chevronDown: <path d="m6 9 6 6 6-6" />,
+  menu: <path d="M3 6h18M3 12h18M3 18h18" />,
+  close: <path d="m6 6 12 12M6 18 18 6" />,
   warning: (
     <>
       <path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
