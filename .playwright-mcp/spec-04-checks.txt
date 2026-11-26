@@ -1,0 +1,174 @@
+async (page) => {
+  const base = 'http://localhost:3111';
+  const results = [];
+  const runtimeErrors = [];
+  const writes = [];
+  page.on('pageerror', error => runtimeErrors.push(error.message));
+  page.on('request', request => {
+    if (request.url().startsWith(base) && (request.method() !== 'GET' || request.url().includes('Martina%20Demo'))) {
+      writes.push({ method: request.method(), url: request.url() });
+    }
+  });
+  function check(name, passed, details) {
+    results.push({ name, passed: Boolean(passed), details });
+    if (!passed) throw new Error(name + ': ' + JSON.stringify(details));
+  }
+  async function capture(name) {
+    await page.evaluate(() => document.fonts.ready);
+    await page.screenshot({ path: '.playwright-mcp/spec-04-' + name + '.png' });
+  }
+  async function openForm() {
+    await page.getByRole('button', { name: 'Agregar niño', exact: true }).click();
+    await page.getByRole('dialog').waitFor();
+  }
+  async function fillChild(name, allergies = '', notes = '') {
+    await page.getByLabel('NOMBRE COMPLETO').fill(name);
+    await page.getByLabel('FECHA DE NACIMIENTO').fill('27/11/2022');
+    await page.getByLabel('ALERGIAS (ETIQUETAS)').fill(allergies);
+    await page.getByLabel('NOTAS MÉDICAS').fill(notes);
+  }
+  async function saveChild() {
+    await page.getByRole('button', { name: 'Guardar', exact: true }).click();
+    await page.getByRole('dialog').waitFor({ state: 'detached' });
+  }
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(base + '/ninos');
+  await openForm();
+  check('Modal without URL change', page.url() === base + '/ninos');
+  await page.waitForFunction(() => document.activeElement.id === 'child-name');
+  check('Initial values', await page.getByLabel('NOMBRE COMPLETO').inputValue() === ''
+    && await page.getByLabel('FECHA DE NACIMIENTO').inputValue() === ''
+    && await page.getByLabel('SALA', { exact: true }).inputValue() === 'Soles');
+  await capture('modal-desktop');
+  await page.getByRole('button', { name: 'Guardar', exact: true }).click();
+  check('Empty fields blocked', await page.getByRole('dialog').count() === 1);
+  check('Accessible errors and first invalid focus', await page.evaluate(() => {
+    const input = document.getElementById('child-name');
+    return document.activeElement === input && input.getAttribute('aria-invalid') === 'true'
+      && document.getElementById(input.getAttribute('aria-describedby')).textContent.length > 0;
+  }));
+  await page.getByLabel('NOMBRE COMPLETO').fill('   ');
+  await page.getByRole('button', { name: 'Guardar', exact: true }).click();
+  check('Whitespace name blocked', await page.getByLabel('NOMBRE COMPLETO').getAttribute('aria-invalid') === 'true');
+  await page.getByLabel('NOMBRE COMPLETO').fill('Martina Demo');
+  for (const value of ['31/04/2022', '29/02/2023', '01/01/2999']) {
+    await page.getByLabel('FECHA DE NACIMIENTO').fill(value);
+    await page.getByRole('button', { name: 'Guardar', exact: true }).click();
+    check('Invalid date blocked: ' + value, await page.getByLabel('FECHA DE NACIMIENTO').getAttribute('aria-invalid') === 'true');
+  }
+  await capture('validation-errors');
+  for (let index = 0; index < 9; index++) {
+    await page.keyboard.press('Tab');
+    check('Modal keyboard containment ' + index, await page.evaluate(() => document.querySelector('dialog').contains(document.activeElement)));
+  }
+  check('Scroll lock', await page.evaluate(() => document.documentElement.style.overflow === 'hidden' && [...document.querySelectorAll('main')].every(main => main.style.overflow === 'hidden')));
+  await page.getByRole('button', { name: 'Cancelar', exact: true }).click();
+  check('Cancel restores focus and scroll', await page.evaluate(() => document.activeElement.textContent.includes('Agregar niño') && document.documentElement.style.overflow !== 'hidden'));
+  for (const method of ['escape', 'outside']) {
+    await openForm();
+    check('Reopen clears draft: ' + method, await page.getByLabel('NOMBRE COMPLETO').inputValue() === '');
+    await page.getByLabel('NOMBRE COMPLETO').fill('Discard Demo');
+    if (method === 'escape') await page.keyboard.press('Escape');
+    else await page.mouse.click(2, 2);
+    await page.getByRole('dialog').waitFor({ state: 'detached' });
+  }
+  await openForm();
+  await fillChild('  Martina Demo  ', 'Maní, MANÍ, , Lactosa, lactosa', 'Nota ficticia de demostración');
+  await saveChild();
+  const firstCard = page.getByRole('link').filter({ has: page.getByRole('heading', { name: 'Martina Demo', exact: true }) });
+  const firstUrl = await firstCard.getAttribute('href');
+  check('Exactly one appended child', (await page.getByRole('main').innerText()).includes('9 niños') && (await page.getByRole('main').getByRole('link').last().getAttribute('href')) === firstUrl);
+  check('Allergies normalized', (await firstCard.innerText()).includes('MANÍ, LACTOSA') && !(await firstCard.innerText()).includes('MANÍ, MANÍ'));
+  await page.getByRole('searchbox', { name: 'Buscar niño' }).fill('MARTINA');
+  check('Search and count include child', (await page.getByRole('main').innerText()).includes('1 niño'));
+  await page.getByRole('searchbox', { name: 'Buscar niño' }).fill('');
+  await openForm();
+  await fillChild('Martina Demo');
+  await saveChild();
+  const duplicateCards = page.getByRole('link').filter({ has: page.getByRole('heading', { name: 'Martina Demo', exact: true }) });
+  const urls = await duplicateCards.evaluateAll(cards => cards.map(card => card.getAttribute('href')));
+  check('Duplicate names with unique IDs', urls.length === 2 && new Set(urls).size === 2 && (await page.getByRole('main').innerText()).includes('10 niños'), urls);
+  await duplicateCards.last().click();
+  await page.waitForURL(base + urls[1]);
+  await page.getByRole('heading', { name: 'Martina Demo', level: 1 }).waitFor();
+  check('Optional notes and parents defaults', (await page.getByRole('main').innerText()).includes('Sin notas médicas') && (await page.getByRole('main').innerText()).includes('Sin padres vinculados'));
+  await page.getByRole('link', { name: 'Volver a Niños' }).click();
+  await page.waitForURL(base + '/ninos');
+  await page.getByRole('link', { name: 'Feed', exact: true }).click();
+  await page.waitForURL(base + '/');
+  await page.getByRole('link', { name: 'Niños', exact: true }).click();
+  await page.waitForURL(base + '/ninos');
+  check('Navigation retains both children', (await page.getByRole('main').innerText()).includes('10 niños'));
+  await page.getByRole('link').filter({ has: page.getByRole('heading', { name: 'Martina Demo', exact: true }) }).first().click();
+  await page.waitForURL(base + firstUrl);
+  await page.getByRole('heading', { name: 'Martina Demo', level: 1 }).waitFor();
+  const profileText = await page.getByRole('main').innerText();
+  check('Profile displays entered values', profileText.includes('MANÍ, LACTOSA') && profileText.includes('Nota ficticia de demostración') && profileText.includes('27 nov 2022'), profileText);
+  await capture('temporary-profile');
+  const storage = await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length, cookies: document.cookie }));
+  check('No persistence', storage.local === 0 && storage.session === 0 && storage.cookies === '', storage);
+  const otherTab = await page.context().newPage();
+  await otherTab.goto(base + '/ninos');
+  check('New tab starts with originals', (await otherTab.getByRole('main').innerText()).includes('8 niños'));
+  await otherTab.close();
+  await page.reload();
+  check('Reloaded temporary profile is not found', await page.getByRole('heading', { name: '404', exact: true }).count() === 1);
+  await page.goto(base + '/ninos');
+  check('Reload removes temporary children', (await page.getByRole('main').innerText()).includes('8 niños') && await page.getByRole('heading', { name: 'Martina Demo', exact: true }).count() === 0);
+  const originalLinks = await page.getByRole('main').locator('a[href^="/nino/"]').evaluateAll(links => links.map(link => link.getAttribute('href')));
+  for (const path of originalLinks) {
+    await page.goto(base + path);
+    check('Original profile: ' + path, await page.getByRole('heading', { name: '404', exact: true }).count() === 0 && await page.getByRole('link', { name: 'Volver a Niños' }).count() === 1);
+  }
+  await page.goto(base + '/nino/unknown-demo');
+  check('Unknown ID remains not found', await page.getByRole('heading', { name: '404', exact: true }).count() === 1);
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto(base + '/ninos');
+  await capture('directory-mobile');
+  check('No mobile overflow', await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  const menuButton = page.getByRole('button', { name: 'Abrir menú', exact: true });
+  for (const method of ['x', 'escape', 'outside']) {
+    await menuButton.click();
+    check('Menu expanded: ' + method, await page.getByRole('button', { name: 'Abrir menú', exact: true, includeHidden: true }).getAttribute('aria-expanded') === 'true');
+    check('Menu retains navigation', await page.getByRole('link', { name: 'Feed', exact: true }).count() === 1 && await page.getByRole('link', { name: 'Niños', exact: true }).count() === 1 && (await page.getByRole('dialog').innerText()).includes('Caro Giménez'));
+    await page.keyboard.press('Shift+Tab');
+    check('Menu contains focus', await page.evaluate(() => document.querySelector('dialog').contains(document.activeElement)));
+    if (method === 'x') {
+      await capture('menu-mobile');
+      await page.getByRole('button', { name: 'Cerrar menú', exact: true }).click();
+    } else if (method === 'escape') await page.keyboard.press('Escape');
+    else await page.mouse.click(370, 400);
+    await page.getByRole('dialog').waitFor({ state: 'detached' });
+    check('Menu restores focus and scroll: ' + method, await page.evaluate(() => document.activeElement.getAttribute('aria-label') === 'Abrir menú' && document.documentElement.style.overflow !== 'hidden'));
+  }
+  await menuButton.click();
+  await page.getByRole('link', { name: 'Feed', exact: true }).click();
+  await page.waitForURL(base + '/');
+  check('Navigation closes menu', await page.getByRole('dialog').count() === 0);
+  await page.getByRole('button', { name: 'Abrir menú' }).click();
+  await page.setViewportSize({ width: 768, height: 812 });
+  await page.getByRole('dialog').waitFor({ state: 'detached' });
+  check('Desktop breakpoint restores sidebar', await page.locator('aside:visible').evaluate(aside => aside.getBoundingClientRect().width === 248) && await page.evaluate(() => document.documentElement.style.overflow !== 'hidden'));
+  await page.setViewportSize({ width: 767, height: 812 });
+  check('Mobile breakpoint hides sidebar', await page.locator('aside:visible').count() === 0 && await page.getByRole('button', { name: 'Abrir menú' }).isVisible());
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto(base + '/ninos');
+  await openForm();
+  await capture('modal-mobile');
+  const modalBounds = await page.getByRole('dialog').evaluate(dialog => ({ width: dialog.scrollWidth, client: dialog.clientWidth, top: dialog.getBoundingClientRect().top, bottom: dialog.getBoundingClientRect().bottom }));
+  check('Mobile modal fits viewport', modalBounds.width <= modalBounds.client && modalBounds.top >= 0 && modalBounds.bottom <= 812, modalBounds);
+  await page.getByLabel('NOTAS MÉDICAS').fill('Notas ficticias extensas. '.repeat(150));
+  await page.getByLabel('NOTAS MÉDICAS').evaluate(textarea => { textarea.style.height = '1200px'; });
+  await page.getByRole('dialog').evaluate(dialog => { dialog.scrollTop = dialog.scrollHeight; });
+  check('Long form can scroll', await page.getByRole('dialog').evaluate(dialog => dialog.scrollTop > 0));
+  await page.keyboard.press('Escape');
+  for (const path of ['/login', '/activar-cuenta']) {
+    await page.goto(base + path);
+    check('No sidebar in ' + path, await page.locator('aside').count() === 0 && await page.getByRole('button', { name: 'Abrir menú' }).count() === 0);
+  }
+  check('No write requests', writes.length === 0, writes);
+  check('No runtime errors', runtimeErrors.length === 0, runtimeErrors);
+  const report = { base, results, runtimeErrors, writes };
+  await page.evaluate(report => { window.__spec04Report = report; }, report);
+  return report;
+}

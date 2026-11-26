@@ -1,6 +1,6 @@
 # SPEC 04 — Alta temporal de niños y navegación móvil
 
-> **Estado:** Aprobado
+> **Estado:** Implementado
 > **Dependencias:** SPEC 01, SPEC 02
 > **Fecha:** 2026-11-26
 > **Objetivo:** Permitir agregar niños en memoria mediante un modal y sustituir la navegación móvil por un panel lateral con hamburguesa.

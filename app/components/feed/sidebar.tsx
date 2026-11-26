@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FeedIcon, type FeedIconName } from "./feed-icons";
+import { MobileNavigation } from "./mobile-navigation";
 
 const navigationItems: { label: string; icon: FeedIconName }[] = [
   { label: "Avisos", icon: "bell" },
@@ -13,10 +14,9 @@ const pageLinks: { label: string; icon: FeedIconName; href: string; section: Sid
   { label: "Niños", icon: "children", href: "/ninos", section: "children" },
 ];
 
-export function Sidebar({ activeSection }: { activeSection: SidebarSection }) {
+function SidebarBrand({ compact = false }: { compact?: boolean }) {
   return (
-    <aside className="flex w-full shrink-0 flex-col border-b border-border bg-surface px-4 py-6 md:sticky md:top-0 md:h-screen md:w-[248px] md:border-r md:border-b-0">
-      <div className="flex items-center gap-[11px] px-2 pt-1 pb-[22px]">
+      <div className={`flex items-center gap-[11px] ${compact ? "" : "px-2 pt-1 pb-[22px]"}`}>
         <div className="flex size-[38px] shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(155deg,#F8C3A8,#F2937A)] text-white">
           <FeedIcon name="sun" size={21} strokeWidth={2.2} />
         </div>
@@ -27,7 +27,13 @@ export function Sidebar({ activeSection }: { activeSection: SidebarSection }) {
           <div className="mt-0.5 text-[11.5px] text-subtle">Sala Soles</div>
         </div>
       </div>
+  );
+}
 
+function SidebarContent({ activeSection }: { activeSection: SidebarSection }) {
+  return (
+    <>
+      <SidebarBrand />
       <button
         type="button"
         disabled
@@ -37,7 +43,7 @@ export function Sidebar({ activeSection }: { activeSection: SidebarSection }) {
         Nueva publicación
       </button>
 
-      <nav aria-label="Navegación principal" className="grid grid-cols-2 gap-1 md:flex md:flex-1 md:flex-col">
+      <nav aria-label="Navegación principal" className="flex flex-1 flex-col gap-1">
         {pageLinks.map(({ label, icon, href, section }) => (
           <Link
             key={section}
@@ -82,6 +88,19 @@ export function Sidebar({ activeSection }: { activeSection: SidebarSection }) {
           </button>
         </div>
       </div>
-    </aside>
+    </>
+  );
+}
+
+export function Sidebar({ activeSection }: { activeSection: SidebarSection }) {
+  return (
+    <>
+      <aside className="sticky top-0 hidden h-screen w-[248px] shrink-0 flex-col border-r border-border bg-surface px-4 py-6 md:flex">
+        <SidebarContent activeSection={activeSection} />
+      </aside>
+      <MobileNavigation brand={<SidebarBrand compact />}>
+        <SidebarContent activeSection={activeSection} />
+      </MobileNavigation>
+    </>
   );
 }

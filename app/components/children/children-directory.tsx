@@ -4,6 +4,8 @@ import { useState } from "react";
 import type { Child } from "@/app/data/children";
 import { FeedIcon } from "@/app/components/feed/feed-icons";
 import { ChildCard } from "./child-card";
+import { AddChildModal } from "./add-child-modal";
+import { useChildren } from "./children-provider";
 
 function normalizeSearch(value: string) {
   return value.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("es");
@@ -11,8 +13,10 @@ function normalizeSearch(value: string) {
 
 export function ChildrenDirectory({ items }: { items: Child[] }) {
   const [search, setSearch] = useState("");
+  const [isAddingChild, setIsAddingChild] = useState(false);
+  const { temporaryChildren } = useChildren();
   const query = normalizeSearch(search);
-  const filteredChildren = items.filter((child) => normalizeSearch(child.name).includes(query));
+  const filteredChildren = [...items, ...temporaryChildren].filter((child) => normalizeSearch(child.name).includes(query));
 
   return (
     <>
@@ -21,7 +25,7 @@ export function ChildrenDirectory({ items }: { items: Child[] }) {
           <div className="mb-1 text-[12.5px] font-extrabold tracking-[0.8px] text-[#D9583C]">GESTIÓN</div>
           <h1 className="font-heading text-[30px] font-semibold">Niños</h1>
         </div>
-        <button type="button" disabled className="flex cursor-default items-center gap-2 rounded-[14px] bg-[linear-gradient(180deg,#F4977E,#EE8164)] px-[18px] py-[11px] text-[14.5px] font-extrabold text-white shadow-[0_8px_18px_-8px_rgba(238,129,100,0.7)]">
+        <button type="button" onClick={() => setIsAddingChild(true)} className="flex cursor-pointer items-center gap-2 rounded-[14px] bg-[linear-gradient(180deg,#F4977E,#EE8164)] px-[18px] py-[11px] text-[14.5px] font-extrabold text-white shadow-[0_8px_18px_-8px_rgba(238,129,100,0.7)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
           <FeedIcon name="plus" size={17} strokeWidth={2.4} />
           Agregar niño
         </button>
@@ -53,6 +57,7 @@ export function ChildrenDirectory({ items }: { items: Child[] }) {
           </div>
         )}
       </section>
+      {isAddingChild && <AddChildModal onClose={() => setIsAddingChild(false)} />}
     </>
   );
 }

@@ -10,7 +10,7 @@ function ProfileHeader({ child }: { child: Child }) {
         {child.initial}
       </span>
       <div className="min-w-0 flex-1 basis-[160px] md:basis-0">
-        <h1 className="font-heading text-[28px] font-semibold">{child.name}</h1>
+        <h1 className="break-words font-heading text-[28px] font-semibold">{child.name}</h1>
         <p className="mt-[3px] text-[15px] text-muted">
           {child.age} años · Sala {child.classroom}
         </p>
@@ -41,7 +41,7 @@ function ChildDetails({ child }: { child: Child }) {
   );
 }
 
-export function ChildProfile({ child }: { child: Child }) {
+export function ChildProfile({ child, showAllergyLabels = false }: { child: Child; showAllergyLabels?: boolean }) {
   return (
     <>
       <Link href="/ninos" className="mb-5 flex w-fit items-center gap-[7px] text-[14px] font-bold text-muted focus-visible:outline-2 focus-visible:outline-accent">
@@ -55,11 +55,14 @@ export function ChildProfile({ child }: { child: Child }) {
             <span className="flex size-10 shrink-0 items-center justify-center rounded-[11px] bg-[#F4A8A0] text-white">
               <FeedIcon name="warning" size={22} strokeWidth={2.2} />
             </span>
-            <div>
+            <div className={showAllergyLabels ? "min-w-0 flex-1" : undefined}>
               <h2 className="mb-0.5 text-[15px] font-extrabold text-[#C5413A]">
                 {child.allergyLabel ? "Alergias y notas" : "Notas"}
               </h2>
-              <p className="text-[14.5px] leading-[1.5] text-[#B25249]">{child.notes}</p>
+              {showAllergyLabels && child.allergyLabel && (
+                <p className="mb-1 break-words text-[14.5px] font-extrabold text-[#B25249]">{child.allergyLabel}</p>
+              )}
+              <p className="break-words text-[14.5px] leading-[1.5] text-[#B25249]">{child.notes}</p>
             </div>
           </section>
           <ChildDetails child={child} />
