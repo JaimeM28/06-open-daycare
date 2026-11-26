@@ -149,28 +149,28 @@ La documentación consultada mediante Context7 corresponde a Next.js 16.4.5, la 
 
 ## Criterios de aceptación
 
-- [ ] `/ninos` muestra los ocho niños originales en su orden.
-- [ ] Textos, edades, colores, etiquetas y conteos coinciden con el listado de referencia.
-- [ ] Cada tarjeta abre el perfil de su propio ID.
-- [ ] Los ocho perfiles funcionan por navegación, acceso directo y recarga.
-- [ ] Mateo reproduce los datos completos de su referencia.
-- [ ] Los demás perfiles contienen datos ficticios coherentes con sus tarjetas.
-- [ ] Valentina muestra el estado sin padres vinculados.
-- [ ] Un ID desconocido muestra 404 sin datos de otro niño.
-- [ ] Feed, Niños y «Volver a Niños» navegan correctamente.
-- [ ] El sidebar identifica la sección activa en las tres vistas.
-- [ ] Buscar `SOFIA` encuentra a Sofía Méndez.
-- [ ] Buscar por apellido filtra correctamente.
-- [ ] El contador refleja los resultados y limpiar restaura los ocho niños.
-- [ ] Una búsqueda sin coincidencias muestra el estado vacío.
-- [ ] Las acciones fuera de alcance permanecen inertes.
-- [ ] La home conserva su diseño y contenido anteriores.
-- [ ] A 1440 × 900, listado y perfil de Mateo coinciden visualmente con sus referencias.
-- [ ] A 375 × 812, ambas pantallas conservan el contenido sin desbordamientos.
-- [ ] No aparecen errores de consola ni hidratación.
-- [ ] Build, generación de tipos, TypeScript y ESLint de `app/` finalizan correctamente.
-- [ ] Se ejecuta lint global distinguiendo los errores previos del runtime generado.
-- [ ] Las evidencias visuales se guardan en `.playwright-mcp/`.
+- [x] `/ninos` muestra los ocho niños originales en su orden.
+- [x] Textos, edades, colores, etiquetas y conteos coinciden con el listado de referencia.
+- [x] Cada tarjeta abre el perfil de su propio ID.
+- [x] Los ocho perfiles funcionan por navegación, acceso directo y recarga.
+- [x] Mateo reproduce los datos completos de su referencia.
+- [x] Los demás perfiles contienen datos ficticios coherentes con sus tarjetas.
+- [x] Valentina muestra el estado sin padres vinculados.
+- [x] Un ID desconocido muestra 404 sin datos de otro niño.
+- [x] Feed, Niños y «Volver a Niños» navegan correctamente.
+- [x] El sidebar identifica la sección activa en las tres vistas.
+- [x] Buscar `SOFIA` encuentra a Sofía Méndez.
+- [x] Buscar por apellido filtra correctamente.
+- [x] El contador refleja los resultados y limpiar restaura los ocho niños.
+- [x] Una búsqueda sin coincidencias muestra el estado vacío.
+- [x] Las acciones fuera de alcance permanecen inertes.
+- [x] La home conserva su diseño y contenido anteriores.
+- [x] A 1440 × 900, listado y perfil de Mateo coinciden visualmente con sus referencias.
+- [x] A 375 × 812, ambas pantallas conservan el contenido sin desbordamientos.
+- [x] No aparecen errores de consola ni hidratación.
+- [x] Build, generación de tipos, TypeScript y ESLint de `app/` finalizan correctamente.
+- [x] Se ejecuta lint global distinguiendo los errores previos del runtime generado.
+- [x] Las evidencias visuales se guardan en `.playwright-mcp/`.
 
 ## Decisiones
 

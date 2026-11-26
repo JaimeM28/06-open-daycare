@@ -1,0 +1,87 @@
+async (page) => {
+  const report = { profiles: [], search: [], inert: [], responsive: [], errors: [] };
+  page.on('pageerror', error => report.errors.push(error.message));
+  page.on('console', message => {
+    if (message.type() === 'error') report.errors.push(message.text());
+  });
+  const base = 'http://localhost:3012';
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto(`${base}/ninos`);
+  const cards = await page.locator('main:visible a[href^="/nino/"]').evaluateAll(elements => elements.map(element => ({ href: element.getAttribute('href'), text: element.innerText })));
+  report.cards = cards;
+  for (const card of cards) {
+    await page.locator(`main:visible a[href="${card.href}"]`).click();
+    await page.waitForURL(`**${card.href}`);
+    const navigated = await page.locator('h1:visible').innerText();
+    await page.goto(`${base}${card.href}`);
+    const direct = await page.locator('h1:visible').innerText();
+    await page.reload();
+    const reloaded = await page.locator('h1:visible').innerText();
+    if (navigated !== direct || direct !== reloaded || !card.text.includes(direct)) throw new Error(`Perfil incorrecto: ${card.href}`);
+    report.profiles.push({ href: card.href, navigated, direct, reloaded, content: await page.locator('main:visible').innerText(), active: await page.locator('nav:visible a[aria-current="page"]').innerText() });
+    await page.getByRole('link', { name: 'Volver a Niños' }).click();
+    await page.waitForURL('**/ninos');
+  }
+  for (const query of ['SOFIA', '  mEnDeZ  ', 'DIAZ', 'Fernández', 'zz-no-match', '']) {
+    await page.getByRole('searchbox').fill(query);
+    report.search.push({ query, names: await page.locator('main:visible a[href^="/nino/"] h2').allTextContents(), counter: await page.locator('main:visible [aria-live]').innerText(), empty: await page.getByRole('status').allTextContents(), url: page.url() });
+    if (query === 'zz-no-match') await page.screenshot({ path: '.playwright-mcp/02-current-search-empty.png' });
+  }
+  await page.getByRole('searchbox').fill('SOFIA');
+  await page.reload();
+  report.reloadSearch = { value: await page.getByRole('searchbox').inputValue(), count: await page.locator('main:visible [aria-live]').innerText() };
+  await page.getByRole('link', { name: 'Feed', exact: true }).click();
+  await page.waitForURL(`${base}/`);
+  report.feedActive = await page.locator('nav:visible a[aria-current="page"]').innerText();
+  await page.getByRole('link', { name: 'Niños', exact: true }).click();
+  await page.waitForURL('**/ninos');
+  report.directoryActive = await page.locator('nav:visible a[aria-current="page"]').innerText();
+  for (const path of ['/', '/ninos', '/nino/mateo-fernandez', '/nino/valentina-soto']) {
+    await page.goto(`${base}${path}`);
+    const original = await page.locator('body').innerText();
+    const buttons = page.locator('button:visible');
+    const labels = [];
+    for (let index = 0; index < await buttons.count(); index++) {
+      const button = buttons.nth(index);
+      if (!await button.isDisabled()) throw new Error(`Acción habilitada fuera de alcance: ${await button.innerText()}`);
+      await button.scrollIntoViewIfNeeded();
+      const box = await button.boundingBox();
+      await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+      labels.push(await button.getAttribute('aria-label') || await button.innerText());
+    }
+    if (page.url() !== `${base}${path}` || await page.locator('body').innerText() !== original) throw new Error(`Acción no inerte: ${path}`);
+    report.inert.push({ path, labels, unchanged: true });
+  }
+  report.unknown = [];
+  for (const id of ['no-existe-actual', 'mateo-fernandez-inexistente']) {
+    const response = await page.goto(`${base}/nino/${id}`);
+    await page.getByRole('heading', { name: '404', exact: true }).waitFor();
+    report.unknown.push({ id, status: response.status(), text: await page.locator('body').innerText(), robots: await page.locator('meta[name="robots"]').evaluateAll(elements => elements.map(element => element.content)) });
+    await page.screenshot({ path: `.playwright-mcp/02-current-404-${id}.png` });
+  }
+  for (const width of [375, 767, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: width === 1440 ? 900 : 812 });
+    for (const [name, path] of [['directory', '/ninos'], ['profile', '/nino/mateo-fernandez']]) {
+      await page.goto(`${base}${path}`);
+      await page.evaluate(() => document.fonts.ready);
+      await page.mouse.move(0, 0);
+      const measurements = await page.evaluate(() => ({ width: innerWidth, scrollWidth: document.documentElement.scrollWidth, sidebar: document.querySelector('aside').getBoundingClientRect().width, container: document.querySelector('main>div').getBoundingClientRect().width, clipped: [...document.querySelectorAll('main *')].filter(element => element.clientWidth > 1 && element.scrollWidth > element.clientWidth + 1).map(element => ({ tag: element.tagName, text: element.textContent.slice(0, 90), client: element.clientWidth, scroll: element.scrollWidth })), grid: document.querySelector('main .grid') ? getComputedStyle(document.querySelector('main .grid')).gridTemplateColumns : null }));
+      await page.screenshot({ path: `.playwright-mcp/02-current-${name}-${width}.png`, fullPage: width < 768 });
+      await page.evaluate(() => {
+        if (innerWidth >= 768) document.querySelector('main').scrollTop = document.querySelector('main').scrollHeight;
+        else window.scrollTo(0, document.body.scrollHeight);
+      });
+      report.responsive.push({ name, ...measurements, scroll: await page.evaluate(() => ({ window: scrollY, main: document.querySelector('main').scrollTop })) });
+    }
+  }
+  await page.goto(`${base}/ninos`);
+  const firstCard = page.locator('main a[href^="/nino/"]').first();
+  await firstCard.hover();
+  await page.waitForFunction(() => {
+    const style = getComputedStyle(document.querySelector('main a[href^="/nino/"]'));
+    return style.translate === '0px -2px' && style.borderColor === 'rgb(242, 167, 142)';
+  });
+  report.hover = await firstCard.evaluate(element => ({ translate: getComputedStyle(element).translate, border: getComputedStyle(element).borderColor }));
+  await page.screenshot({ path: '.playwright-mcp/02-current-card-hover.png' });
+  return report;
+}

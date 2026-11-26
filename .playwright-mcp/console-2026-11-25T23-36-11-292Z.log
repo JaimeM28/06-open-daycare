@@ -1,0 +1,4 @@
+[    7186ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:3011/favicon.ico:1
+[  272093ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3012/nino/no-existe-actual:1
+[  285341ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3012/nino/no-existe-actual:1
+[  285522ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3012/nino/mateo-fernandez-inexistente:1
