@@ -10,11 +10,11 @@ export default function LoginPage() {
         <div aria-hidden="true" className="absolute -bottom-[110px] -left-20 size-[300px] rounded-full bg-white/10" />
         <AuthBrand variant="login" />
         <div className="relative hidden md:block">
-          <h1 className="mb-[18px] font-heading text-[42px] leading-[1.12] font-semibold">
+          <h2 className="mb-[18px] font-heading text-[42px] leading-[1.12] font-semibold">
             El día de cada niño,
             <br />
             compartido con su familia.
-          </h1>
+          </h2>
           <p className="max-w-[430px] text-[17px] leading-[1.6] text-white/92">
             Publicá momentos, gestioná las salas y mantené a las familias cerca,
             desde un solo lugar.
@@ -27,9 +27,9 @@ export default function LoginPage() {
 
       <section aria-labelledby="login-heading" className="flex items-center justify-center px-6 py-10 md:p-10">
         <div className="w-full max-w-[392px]">
-          <h2 id="login-heading" className="mb-1.5 font-heading text-[30px] font-semibold">
+          <h1 id="login-heading" className="mb-1.5 font-heading text-[30px] font-semibold">
             Iniciar sesión
-          </h2>
+          </h1>
           <p className="mb-7 text-[15px] text-muted">
             Ingresá para ver el día de hoy.
           </p>
