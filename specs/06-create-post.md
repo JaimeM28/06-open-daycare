@@ -185,49 +185,55 @@ Conservar `cacheComponents` y `partialPrefetching`.
 
 ## Criterios de aceptación
 
-- [ ] «Compartí un momento…» y «Nueva publicación» abren el mismo formulario sin cambiar la URL.
-- [ ] «Nueva publicación» funciona desde feed, listado y perfiles.
-- [ ] En móvil, el menú se cierra antes de abrir el formulario y no quedan dos diálogos abiertos.
-- [ ] El formulario muestra los ocho niños originales y «Toda la sala», sin niños temporales.
-- [ ] Inicialmente están seleccionados Mateo y Actividad, con descripción vacía.
-- [ ] Se pueden seleccionar varios niños y deseleccionarlos.
-- [ ] «Toda la sala» y los destinatarios individuales son alternativas excluyentes.
-- [ ] Sin destinatarios no se puede publicar y se muestra un error accesible junto al grupo.
-- [ ] Los siete tipos son seleccionables y solo uno queda seleccionado.
-- [ ] Una descripción vacía o compuesta solo por espacios impide publicar.
-- [ ] Un envío inválido conserva valores y enfoca el primer control inválido.
-- [ ] Enter dentro de la descripción inserta una línea y no publica.
-- [ ] Cada envío válido crea exactamente una tarjeta al principio del feed.
-- [ ] Seleccionar varios niños genera una sola tarjeta con sus nombres.
-- [ ] Seleccionar «Toda la sala» genera una sola tarjeta general con ese destinatario.
-- [ ] La tarjeta nueva muestra tipo, hora local, descripción recortada y contadores a cero.
-- [ ] Los saltos de línea de la descripción se conservan al mostrarla.
-- [ ] El tipo Foto permite publicar sin archivo y muestra únicamente un placeholder genérico en su tarjeta.
-- [ ] Los otros tipos nuevos no muestran placeholder de foto.
-- [ ] La miniatura del formulario es ilustrativa y «Agregar» no abre archivos ni navega.
-- [ ] Publicar desde listado o perfil navega a `/` y deja visible la tarjeta nueva.
-- [ ] Publicar desde `/` muestra la tarjeta nueva y desplaza el main al inicio.
-- [ ] Navegar entre feed, listado y perfiles conserva las publicaciones nuevas.
-- [ ] Recargar o abrir otra pestaña restaura las tres publicaciones originales.
-- [ ] Las tres publicaciones originales conservan contenido, orden relativo, contadores y apariencia.
-- [ ] Editar, reacciones y comentarios no incorporan comportamiento nuevo.
-- [ ] Cancelar, Escape y clic fuera descartan el formulario y reabrir restaura sus valores iniciales.
-- [ ] El foco permanece dentro del modal y vuelve al disparador disponible al cancelar.
-- [ ] Al cancelar un formulario abierto desde el menú móvil, el foco vuelve a la hamburguesa.
-- [ ] El fondo no recibe interacción ni se desplaza y sus bloqueos se liberan al cerrar.
-- [ ] Los controles se utilizan con teclado, tienen nombre accesible y muestran foco visible.
-- [ ] A 1440 × 900 se compara la tarjeta con la referencia, considerando las diferencias acordadas.
-- [ ] A 375 × 812 no hay desbordamiento horizontal ni controles inaccesibles y el modal largo se desplaza.
-- [ ] A 767 y 768 px los accesos, el modal y la navegación funcionan sin bloqueos residuales.
-- [ ] La preferencia de modo oscuro no altera el tema claro.
-- [ ] No se transmiten ni persisten destinatarios, descripciones o archivos.
-- [ ] Alta de niños, vinculación de padres, login y activación conservan su comportamiento.
-- [ ] No aparecen errores de ejecución ni hidratación.
-- [ ] `npm run build` finaliza correctamente.
-- [ ] `npx next typegen` seguido de `npx tsc --noEmit` finaliza correctamente.
-- [ ] `npx eslint app` finaliza sin errores.
-- [ ] Se ejecuta el lint global y se distinguen los fallos previos de `references/` de las regresiones propias.
-- [ ] Las capturas y evidencias se guardan en `.playwright-mcp/`, con iguales viewport y scroll y tras `document.fonts.ready`.
+- [x] «Compartí un momento…» y «Nueva publicación» abren el mismo formulario sin cambiar la URL.
+- [x] «Nueva publicación» funciona desde feed, listado y perfiles.
+- [x] En móvil, el menú se cierra antes de abrir el formulario y no quedan dos diálogos abiertos.
+- [x] El formulario muestra los ocho niños originales y «Toda la sala», sin niños temporales.
+- [x] Inicialmente están seleccionados Mateo y Actividad, con descripción vacía.
+- [x] Se pueden seleccionar varios niños y deseleccionarlos.
+- [x] «Toda la sala» y los destinatarios individuales son alternativas excluyentes.
+- [x] Sin destinatarios no se puede publicar y se muestra un error accesible junto al grupo.
+- [x] Los siete tipos son seleccionables y solo uno queda seleccionado.
+- [x] Una descripción vacía o compuesta solo por espacios impide publicar.
+- [x] Un envío inválido conserva valores y enfoca el primer control inválido.
+- [x] Enter dentro de la descripción inserta una línea y no publica.
+- [x] Cada envío válido crea exactamente una tarjeta al principio del feed.
+- [x] Seleccionar varios niños genera una sola tarjeta con sus nombres.
+- [x] Seleccionar «Toda la sala» genera una sola tarjeta general con ese destinatario.
+- [x] La tarjeta nueva muestra tipo, hora local, descripción recortada y contadores a cero.
+- [x] Los saltos de línea de la descripción se conservan al mostrarla.
+- [x] El tipo Foto permite publicar sin archivo y muestra únicamente un placeholder genérico en su tarjeta.
+- [x] Los otros tipos nuevos no muestran placeholder de foto.
+- [x] La miniatura del formulario es ilustrativa y «Agregar» no abre archivos ni navega.
+- [x] Publicar desde listado o perfil navega a `/` y deja visible la tarjeta nueva.
+- [x] Publicar desde `/` muestra la tarjeta nueva y desplaza el main al inicio.
+- [x] Navegar entre feed, listado y perfiles conserva las publicaciones nuevas.
+- [x] Recargar o abrir otra pestaña restaura las tres publicaciones originales.
+- [x] Las tres publicaciones originales conservan contenido, orden relativo, contadores y apariencia.
+- [x] Editar, reacciones y comentarios no incorporan comportamiento nuevo.
+- [x] Cancelar, Escape y clic fuera descartan el formulario y reabrir restaura sus valores iniciales.
+- [x] El foco permanece dentro del modal y vuelve al disparador disponible al cancelar.
+- [x] Al cancelar un formulario abierto desde el menú móvil, el foco vuelve a la hamburguesa.
+- [x] El fondo no recibe interacción ni se desplaza y sus bloqueos se liberan al cerrar.
+- [x] Los controles se utilizan con teclado, tienen nombre accesible y muestran foco visible.
+- [x] A 1440 × 900 se compara la tarjeta con la referencia, considerando las diferencias acordadas.
+- [x] A 375 × 812 no hay desbordamiento horizontal ni controles inaccesibles y el modal largo se desplaza.
+- [x] A 767 y 768 px los accesos, el modal y la navegación funcionan sin bloqueos residuales.
+- [x] La preferencia de modo oscuro no altera el tema claro.
+- [x] No se transmiten ni persisten destinatarios, descripciones o archivos.
+- [x] Alta de niños, vinculación de padres, login y activación conservan su comportamiento.
+- [x] No aparecen errores de ejecución ni hidratación.
+- [x] `npm run build` finaliza correctamente.
+- [x] `npx next typegen` seguido de `npx tsc --noEmit` finaliza correctamente.
+- [x] `npx eslint app` finaliza sin errores.
+- [x] Se ejecuta el lint global y se distinguen los fallos previos de `references/` de las regresiones propias.
+- [x] Las capturas y evidencias se guardan en `.playwright-mcp/`, con iguales viewport y scroll y tras `document.fonts.ready`.
+
+### Evidencia de implementación
+
+- Comprobaciones funcionales, visuales y de regresión: `.playwright-mcp/spec-06-verification.md`.
+- Verificación con Playwright sobre el build de producción en `http://localhost:3110`.
+- Estado Aprobado conservado para la revisión final del usuario; sin commits automáticos.
 
 ## Decisiones
 

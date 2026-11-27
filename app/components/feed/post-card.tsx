@@ -1,22 +1,5 @@
 import { FeedIcon } from "./feed-icons";
-
-const postCategories = {
-  achievement: { label: "LOGRO", className: "bg-[#CFEBD8] text-[#3E9B6C]" },
-  activity: { label: "ACTIVIDAD", className: "bg-[#C7E7F1] text-[#2E89A6]" },
-  announcement: { label: "ANUNCIO", className: "bg-[#CCD8F4] text-[#4E72C8]" },
-};
-
-export type FeedPost = {
-  id: string;
-  type: keyof typeof postCategories;
-  name: string;
-  time: string;
-  recipient: string;
-  text: string;
-  reactionCount: number;
-  commentCount: number;
-  hasPhoto: boolean;
-};
+import { postCategories, type FeedPost } from "@/app/data/posts";
 
 function PostHeader({ post }: { post: FeedPost }) {
   const category = postCategories[post.type];
@@ -33,7 +16,7 @@ function PostHeader({ post }: { post: FeedPost }) {
         {isAnnouncement ? <FeedIcon name="announcement" size={20} /> : post.name[0]}
       </div>
       <div className="min-w-0 flex-1 basis-[150px] md:basis-0">
-        <h2 className="font-heading text-[16.5px] font-semibold">{post.name}</h2>
+        <h2 className="wrap-anywhere font-heading text-[16.5px] font-semibold">{post.name}</h2>
         <div className="text-[12.5px] text-subtle">
           {post.time} · publicado por vos
         </div>
@@ -43,7 +26,7 @@ function PostHeader({ post }: { post: FeedPost }) {
       >
         <span className="size-2 rounded-full bg-current" />
         <span className="text-[12px] font-extrabold tracking-[0.5px]">
-          {category.label}
+          {category.label.toLocaleUpperCase("es")}
         </span>
       </div>
     </header>
@@ -80,11 +63,11 @@ function PostFooter({ post }: { post: FeedPost }) {
   );
 }
 
-function PhotoPlaceholder() {
+function PhotoPlaceholder({ isIllustrative }: { isIllustrative: boolean }) {
   return (
     <div className="mt-[14px] flex h-[200px] flex-col items-center justify-center gap-2 rounded-2xl border-[1.5px] border-dashed border-[#DBCDBA] bg-[#F4ECE1] text-[#B0A290]">
       <FeedIcon name="photo" size={30} strokeWidth={1.7} />
-      <span className="text-[13.5px]">Foto · pintando con témperas</span>
+      <span className="text-[13.5px]">{isIllustrative ? "Foto · imagen ilustrativa" : "Foto · pintando con témperas"}</span>
     </div>
   );
 }
@@ -92,13 +75,13 @@ function PhotoPlaceholder() {
 export function PostCard({ post }: { post: FeedPost }) {
   return (
     <article
-      aria-label={`${post.name}: ${postCategories[post.type].label}`}
+      aria-label={`${post.name}: ${postCategories[post.type].label.toLocaleUpperCase("es")}`}
       className="rounded-[20px] border border-border bg-surface px-4 py-5 shadow-[0_4px_16px_-12px_rgba(120,90,60,0.5)] md:px-[22px]"
     >
       <PostHeader post={post} />
-      <div className="mb-2.5 text-[12.5px] text-subtle">Para: {post.recipient}</div>
-      <p className="text-[15.5px] leading-[1.55] text-[#4A4038]">{post.text}</p>
-      {post.hasPhoto && <PhotoPlaceholder />}
+      <div className="mb-2.5 wrap-anywhere text-[12.5px] text-subtle">Para: {post.recipient}</div>
+      <p className="wrap-anywhere text-[15.5px] leading-[1.55] whitespace-pre-wrap text-[#4A4038]">{post.text}</p>
+      {post.hasPhoto && <PhotoPlaceholder isIllustrative={post.type === "photo"} />}
       <PostFooter post={post} />
     </article>
   );
