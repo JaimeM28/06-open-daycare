@@ -1,5 +1,12 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "references": {
+    "docs": {
+      "path": "../07-DB-Schema",
+      "description": "Database schema for the daycare management system"
+    }
+  },
+  "lsp":true,
   "mcp": {
     "servers": {
       "playwright": {
@@ -14,3 +21,4 @@
     }
   }
 }
+

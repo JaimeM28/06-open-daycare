@@ -16,7 +16,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Contexto que importa
 
-- `/` implementa el feed y permite crear publicaciones en memoria; `/ninos` lista niños, filtra por nombre y permite agregarlos mediante un modal; `/nino/[id]` muestra sus perfiles y permite vincular familiares a los ocho niños originales. Feed, Niños, las tarjetas y «Volver a Niños» navegan; edición, comentarios, reacciones y el resto de las acciones de gestión siguen inertes. No hay autenticación, API ni base de datos.
+- `/` implementa el feed y permite crear publicaciones en memoria; `/ninos` lista niños, filtra por nombre y permite agregarlos mediante un modal; `/nino/[id]` muestra sus perfiles y permite vincular familiares a los ocho niños originales. Feed, Niños, las tarjetas y «Volver a Niños» navegan; edición, comentarios, reacciones y el resto de las acciones de gestión siguen inertes. La aplicación todavía no integra autenticación, API ni persistencia en Supabase.
 - `/login` y `/activar-cuenta` son demos navegables sin selector de rol ni sesión real. Usan validación nativa y envían al feed `/` sin transmitir ni persistir credenciales. El consentimiento de fotos es opcional y no se guarda; recuperación de contraseña permanece inerte. Ambas rutas omiten el sidebar y reutilizan `app/components/auth/`.
 - `app/data/children.ts` conserva los ocho niños ficticios originales y sus IDs prerenderizados con `generateStaticParams`. `ChildrenProvider`, montado en el layout raíz, añade niños solo en memoria durante la navegación; recargar o abrir otra pestaña los pierde. Sus IDs `temporary-<UUID>` se resuelven con `TemporaryChildProfile` y muestran no encontrado si ya no existen; el resto de IDs desconocidos llama a `notFound()` en servidor. Usa `/nino/`, sin `ñ`.
 - `app/lib/child-form.ts` valida nombre sin espacios vacíos, fecha local `dd/mm/aaaa` válida no futura y sala Soles. Calcula edad al guardar, deduplica alergias separadas por comas y crea perfiles sin padres. Solo deben introducirse datos ficticios; no se persisten ni se envían por red.
@@ -33,6 +33,19 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - El README sigue siendo el del starter; no describe las fuentes ni la pantalla actuales.
 - Nombres del código en inglés; comentarios en español solo cuando aporten valor.
 
+## Supabase y skills instaladas
+
+- El esquema de referencia está en `../07-DB-Schema/opendaycare-database-schema.md`, accesible mediante la referencia `docs` de `opencode.json`. Es documentación de diseño, no evidencia del estado de la base de datos remota; inspecciona las tablas existentes antes de modificar el esquema.
+- Las skills locales de Supabase proceden de `supabase/agent-skills`; `skills-lock.json` registra su origen y revisión. No es necesario reinstalarlas.
+  - `.agents/skills/supabase/SKILL.md`: cargar para cualquier tarea de Supabase (Database, Auth, Storage, Realtime, Edge Functions, CLI o MCP). Consultar documentación vigente antes de implementar.
+  - `.agents/skills/supabase-postgres-best-practices/SKILL.md`: cargar antes de escribir SQL o cambiar esquemas, migraciones, índices, funciones o políticas RLS; también para diagnosticar rendimiento y acceso indebido a filas. Consultar sus referencias según la tarea.
+- Las skills de especificaciones siguen en `.agents/skills/spec/SKILL.md` y `.agents/skills/spec-impl/SKILL.md`; las de Supabase no sustituyen el flujo de aprobación de specs.
+- Hay herramientas MCP de Supabase disponibles en el entorno del agente; `opencode.json` solo declara el servidor MCP de Playwright. No asumir un proyecto destino: comprobar el proyecto conectado antes de operar y no aplicar cambios remotos fuera del alcance autorizado.
+- Aún no hay dependencias cliente de Supabase en `package.json`. La disponibilidad del MCP no implica que la aplicación esté conectada ni que los formularios persistan datos.
+- `.env.template` documenta `SUPABASE_DB_PASSWORD` sin valor. Mantener contraseñas, tokens y claves secretas fuera del repositorio, logs y respuestas; nunca exponer `SUPABASE_DB_PASSWORD`, `service_role` ni claves secretas mediante variables `NEXT_PUBLIC_` o código cliente.
+- Antes de cambios de esquema, inspeccionar la estructura existente y preferir desarrollo y verificación locales. Al diagnosticar incidencias, revisar primero logs y avisos de seguridad y rendimiento. Verificar cada cambio con consultas o pruebas apropiadas.
+- Habilitar RLS en tablas de esquemas expuestos y definir políticas según los permisos reales del sistema; estar autenticado no basta para acceder a todos los niños o familias. No usar datos editables por el usuario (`user_metadata`) como fuente de autorización.
+
 ## Especificaciones y comprobación visual
 
 - Para definir o implementar specs, consulta `.agents/skills/spec/SKILL.md` y `.agents/skills/spec-impl/SKILL.md`. La implementación exige aprobación del usuario; `specs/.spec-config.yml` controla la creación de rama y los commits por paso.
@@ -40,3 +53,24 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Playwright MCP está configurado en `opencode.json`; no hay una suite de Playwright Test. Guarda capturas, logs y cualquier otro artefacto en `.playwright-mcp/`.
 - Compara el HTML de referencia y la aplicación con el mismo viewport y scroll, tras `document.fonts.ready`. En escritorio el scroll pertenece a `main`, no a `window`; en móvil se desplaza la página.
 - Tras cambios de código, reconstruye y reinicia cualquier servidor `npm run start` usado para verificar: sirve el build, no los archivos fuente actuales.
+
+<!-- BEGIN:nextjs-agent-feedback -->
+
+## Report Next.js feedback
+
+The project owner enabled `experimental.agentFeedback`, authorizing this feedback pass. When enabled, `next dev` writes this block and restores it if removed. Commit `AGENTS.md` with your work to keep the tree clean.
+
+During the current user request, retain anonymized facts as feedback candidates for meaningful or recurring Next.js issues:
+
+- Crashes, hangs, OOMs, or unexpected slowness
+- Incorrect behavior, output, errors, or diagnostics
+- Missing, unclear, or conflicting documentation
+- Unexpected CLI, codemod, Skill, or upgrade behavior and non-obvious workarounds
+
+Continue the current user request without reporting immediately. Routine debugging is not feedback. Verify changes before retaining them as feedback candidates. Never retain code, logs, paths, URLs, secrets, personal information, or project-specific data.
+
+Retain qualifying friction even if it is later fixed or worked around; record the final outcome during the reporting pass.
+
+Before the final response, run one reporting pass. If candidates remain, from this file's directory run `npx --no-install next internal agent-feedback-instructions` once without piping or truncating its output. Follow its output or error guidance. If a network sandbox blocks it, retry with network access; if it still returns no output, continue normally.
+
+<!-- END:nextjs-agent-feedback -->
